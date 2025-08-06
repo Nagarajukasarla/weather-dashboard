@@ -1,0 +1,9 @@
+/* src/assets/styles/content.css */
+.content-root {
+  position: relative;
+  padding: 24px 32px;
+  color: #d1d5db;
+  flex: 1;
+  height: 100%;
+  
+}
