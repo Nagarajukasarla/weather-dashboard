@@ -1,7 +1,7 @@
 import { PieChart, Pie } from "recharts";
-import type { ChartDataProps } from "../../types/component";
+import type { BarChartDataProps } from "../../types/component";
 
-const DashboardPieChart: React.FC<ChartDataProps> = ({ data }) => {
+const DashboardPieChart: React.FC<BarChartDataProps> = ({ data }) => {
     return (
         <>
             <PieChart width={400} height={300}> 

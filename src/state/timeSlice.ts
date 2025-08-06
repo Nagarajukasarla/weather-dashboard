@@ -1,4 +1,3 @@
-// src/state/timeSlice.ts
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import dayjs from "dayjs";
 
@@ -40,7 +39,6 @@ const timeSlice = createSlice({
             const newStart = dayjs(state.start_date).add(action.payload, "day");
             const newEnd = newStart.add(diff, "day");
 
-            // Clamp to min/max if needed
             state.start_date = newStart.format("YYYY-MM-DD");
             state.end_date = newEnd.format("YYYY-MM-DD");
         },

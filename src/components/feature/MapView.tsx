@@ -1,5 +1,3 @@
-// src/components/feature/MapView.tsx
-
 import { type LatLngLiteral, type LeafletEvent } from "leaflet";
 import "leaflet-draw/dist/leaflet.draw.css";
 import "leaflet/dist/leaflet.css";

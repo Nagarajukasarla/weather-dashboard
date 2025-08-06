@@ -1,4 +1,3 @@
-// src/components/Header.tsx
 import React from "react";
 import "../../assets/header.css";
 import { BarChartOutlined } from "@ant-design/icons";

@@ -1,5 +1,3 @@
-// src/utils/geoUtils.ts
-
 import type { LatLngLiteral } from "leaflet";
 import type { PolygonShape } from "../types/map";
 

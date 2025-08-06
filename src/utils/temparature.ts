@@ -1,5 +1,3 @@
-// src/utils/weather.ts
-
 import type { LatLngLiteral } from "leaflet";
 
 /**

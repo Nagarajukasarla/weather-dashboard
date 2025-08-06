@@ -1,11 +1,9 @@
-/* src/assets/styles/appLayout.css */
 .dashboard-wrapper {
   display: flex;
   flex-direction: column;
   height: 100%;
   width: 100%;
   background-color: #111827;
-  padding-bottom: 100px;
 }
 
 .dashboard-header {
@@ -16,5 +14,4 @@
 .dashboard-content {
   flex: 1;
   height: 100%;
-  /* padding-bottom: 30px; */
 }

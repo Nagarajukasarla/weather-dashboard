@@ -33,7 +33,6 @@ const Content: React.FC = () => {
     console.log("===end_date", end_date);
     console.log("===selectedShapes", selectedShapes);
 
-    // Handle shape additions and trigger weather fetch for first shape
     useEffect(() => {
         const currentShapesCount = selectedShapes.length;
         
@@ -44,15 +43,10 @@ const Content: React.FC = () => {
             getWeather(firstShape);
         }
         
-        // Update the previous count
         prevShapesCount.current = currentShapesCount;
     }, [selectedShapes]);
 
     useEffect(() => {
-        // if start_date or end_date changes then fetch weather data
-        // if start and end are valid dates ONLY
-        // also check if shapes are avalibale in state
-        // if no shapes are their don't call weather api
         if (start_date && end_date) {
             if (clickedShape) {
                 getWeather(clickedShape);
@@ -119,34 +113,6 @@ const Content: React.FC = () => {
         loadLineChartData();
     }, [weatherData]);
 
-    const productAnalytics = [
-        { label: "Product A", value: 4000 },
-        { label: "Product B", value: 2800 },
-        { label: "Product C", value: 300 },
-        { label: "Product D", value: 100 },
-        { label: "Product E", value: 1600 },
-        { label: "Product F", value: 1700 },
-        { label: "Product G", value: 200 },
-        { label: "Product H", value: 150 },
-        { label: "Product I", value: 200 },
-        { label: "Product J", value: 789 },
-        { label: "Product K", value: 459 },
-    ];
-
-    const revenueAnalytics = [
-        { label: "January", value: 1000 },
-        { label: "February", value: 200 },
-        { label: "March", value: 7000 },
-        { label: "April", value: 6000 },
-        { label: "May", value: 8000 },
-        { label: "June", value: 670 },
-        { label: "July", value: 700 },
-        { label: "August", value: 10 },
-        { label: "September", value: 9000 },
-        { label: "October", value: 10000 },
-        { label: "November", value: 500 },
-        { label: "December", value: 12000 },
-    ];
     return (
         <main className="content-root">
             {loading && <Spinner />}
@@ -176,8 +142,8 @@ const Content: React.FC = () => {
             }}>
                 <div
                     style={{
-                        width: "fit-content",
-                        height: "100%",
+                        width: "30%",
+                        height: "350px",
                         backgroundColor: "#1f2937",
                         backdropFilter: "blur(4px)",
                         borderRadius: "8px",
@@ -185,12 +151,18 @@ const Content: React.FC = () => {
                         padding: 10,
                     }}
                 >
+                    <p style={{ 
+                        fontSize: "16px", 
+                        fontWeight: "bold", 
+                        margin: "20px 0 0 30px"
+                    }}>Humidity</p>
                     <DashboardPieChart data={pieChartData || []} />
                 </div>
 
                 <div
                     style={{
-                        height: "100%",
+                        width: "60%",
+                        height: "350px",
                         backgroundColor: "#1f2937",
                         backdropFilter: "blur(4px)",
                         borderRadius: "8px",
@@ -198,13 +170,19 @@ const Content: React.FC = () => {
                         padding: 10,
                     }}
                 >
+                    <p style={{ 
+                        fontSize: "16px", 
+                        fontWeight: "bold", 
+                        margin: "10px 0 0 30px"
+                    }}>Temperature</p>
                     <DashboardBarChart data={barChatData || []} />
                 </div>
             </Row>
-            <Row>
+            <Row style={{ padding: "0 0 40px 0", flexWrap: "wrap", rowGap: "20px" }}>
                 <div
                     style={{
-                        height: "100%",
+                        width: "100%",
+                        height: "400px",
                         backgroundColor: "#1f2937",
                         backdropFilter: "blur(4px)",
                         borderRadius: "8px",
@@ -212,6 +190,11 @@ const Content: React.FC = () => {
                         padding: 10,
                     }}
                 >
+                    <p style={{ 
+                        fontSize: "16px", 
+                        fontWeight: "bold", 
+                        margin: "25px 0 40px 30px"
+                    }}>Max Temperature</p>
                     <RangedRevenueLinedChart data={lineChartData || []} />
                 </div>
             </Row>

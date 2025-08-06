@@ -1,5 +1,3 @@
-// src/state/mapSlice.ts
-
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { MapState, PolygonShape } from "../types/map";
 
