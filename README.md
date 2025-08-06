@@ -1,69 +1,70 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, interactive weather dashboard built with React, TypeScript, and Vite. Visualize weather data with interactive maps and charts.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Interactive map with shape drawing tools
+- Real-time weather data visualization
+- Temperature, humidity, wind speed, and precipitation metrics
+- Responsive design with a modern UI
+- Data persistence using localStorage
+- Interactive charts for weather trends
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React 18 with TypeScript
+- Vite for fast development and builds
+- Redux for state management
+- Ant Design for UI components
+- Leaflet and React-Leaflet for maps
+- Recharts for data visualization
+- Open-Meteo API for weather data
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Nagarajukasarla/weather-dashboard.git
+   cd weather-dashboard
+   ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+2. Install dependencies:
+   ```bash
+   bun install
+   # or
+   npm install
+   ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+3. Start the development server:
+   ```bash
+   bun dev
+   # or
+   npm run dev
+   ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+4. Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Project Structure
+
+- `src/` - Source code
+  - `components/` - Reusable React components
+    - `core/` - Core UI components
+    - `feature/` - Feature-specific components
+    - `layouts/` - Page layouts
+  - `state/` - Redux store and slices
+  - `types/` - TypeScript type definitions
+  - `utils/` - Utility functions
+  - `api/` - API integration
+
+## Available Scripts
+
+- `dev` - Start development server
+- `build` - Build for production
+- `preview` - Preview production build locally
+- `test` - Run tests
+- `lint` - Run ESLint
+- `typecheck` - Run TypeScript type checking
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
