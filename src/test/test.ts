@@ -11,7 +11,7 @@ const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
     103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120];
 
 
-// Upto 4 days is okay
+// Upto 4 days is good
 const getminArray = (temperatures: number[], days: number) => {
     let step = 24 / days;
     let start = 0;
@@ -30,7 +30,7 @@ const getminArray = (temperatures: number[], days: number) => {
 console.log("getminArray(values, 3): ", getminArray(values, 3));
 
 
-// More than 5 days is not okay
+// More than 5 days is not recommended
 const getDayWiseMinTemperature = (temperatures: number[]) => {
     const days = temperatures.length / 24;
     if (days >= 5) {
@@ -64,3 +64,29 @@ const getMinTemperatureArray = (temperatures: number[]) => {
 }
 
 console.log("getMinTemperatureArray(values): ", getMinTemperatureArray(values));
+
+
+const formatData = (step: number, data: number[]) => {
+    let newData: { label: string; value: number }[] = [];
+    let labelValue = 1;
+    let currStep = step;
+
+    let currShift = 24;
+    for (let i = 0; i < data.length; i++) {
+        const item = {
+            label: String(labelValue++).padStart(2, "0") + ":00",
+            value: data[i]
+        }
+        newData.push(item);
+        if ((i + 1) % currStep == 0) {
+            labelValue = currShift + 1;
+            currShift += 24;
+            currStep += step;
+        }
+    }
+    return newData;
+}
+
+console.log("formatData(12, num[]): " + JSON.stringify(formatData(8, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+    11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+    21, 22, 23, 24]), null, 2));

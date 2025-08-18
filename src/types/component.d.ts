@@ -6,11 +6,26 @@ export interface DashboardCardProps {
     bodyStyle?: React.CSSProperties;
 };
 
-export type ChartData = {
+export interface CategorizedData {
     label: string;
     value: number;
+}
+
+export interface PieChartDataProps {
+    data: CategorizedData[];
+}
+
+export interface ContinuesData {
+    dateLabel: string;
+    temperature: number;
+    humidity?: number;
+    feelsLike?: number;
 };
 
 export interface BarChartDataProps {
-    data: ChartData[];
-};
+    data: ContinuesData[];
+}
+
+export interface LineChartDataProps {
+    data: ContinuesData[];
+}

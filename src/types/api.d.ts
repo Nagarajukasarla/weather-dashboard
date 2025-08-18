@@ -1,5 +1,6 @@
 
 interface HourlyData {
+    weather_code: number[];
     time: string[];
     temperature_2m: number[];
     precipitation: number[];

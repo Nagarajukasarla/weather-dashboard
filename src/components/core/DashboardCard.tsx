@@ -8,12 +8,7 @@ interface DashboardCardProps {
     style?: React.CSSProperties;
 }
 
-const DashboardCard: React.FC<DashboardCardProps> = ({
-    icon,
-    title,
-    value,
-    style,
-}) => {
+const DashboardCard: React.FC<DashboardCardProps> = ({ icon, title, value, style }) => {
     const cardStyle: React.CSSProperties = {
         width: "200px",
         border: "1px solid rgba(255, 255, 255, 0.2)",
@@ -65,7 +60,7 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
                             style={{
                                 display: "flex",
                                 justifyContent: "space-between",
-                                width: "140px",
+                                width: "150px",
                             }}
                         >
                             <div
@@ -73,12 +68,21 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
                                     display: "flex",
                                     alignItems: "center",
                                 }}
-                            ><ArrowUpOutlined style={{ color: "#10b981", marginRight: "5px" }} /><p style={valueStyle}>{value[0]}</p></div>
+                            >
+                                <ArrowUpOutlined style={{ color: "#10b981", marginRight: "5px" }} />
+                                <p style={valueStyle}>{value[0]}</p>
+                            </div>
                             <div
                                 style={{
                                     display: "flex",
                                     alignItems: "center",
-                                }}><ArrowDownOutlined style={{ color: "#ef4444", marginRight: "5px" }} /><p style={valueStyle}>{value[1]}</p></div>
+                                }}
+                            >
+                                <ArrowDownOutlined
+                                    style={{ color: "#ef4444", marginRight: "5px" }}
+                                />
+                                <p style={valueStyle}>{value[1]}</p>
+                            </div>
                         </div>
                     ) : (
                         <p style={valueStyle}>{value}</p>

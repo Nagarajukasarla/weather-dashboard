@@ -132,7 +132,9 @@ const TimelineSlider: React.FC = () => {
                                     backgroundColor: "#a78bfa",
                                     borderRadius: "50%",
                                     boxShadow: "none",
-                                    outline: "none"
+                                    outline: "none",
+                                    marginTop: 2,
+                                    marginLeft: -2
                                 }
                             }}
                         />
@@ -152,7 +154,8 @@ const TimelineSlider: React.FC = () => {
                                     backgroundColor: "#a78bfa",
                                     borderRadius: "50%",
                                     boxShadow: "none",
-                                    outline: "none"
+                                    outline: "none",
+                                    marginTop: 2
                                 }
                             }}
                         />
