@@ -96,7 +96,6 @@ class APIResponse<T = any> {
         switch (code) {
             case APIResponse.SUCCESS: return "Request successful";
             case APIResponse.NOT_FOUND: return "Resource not found";
-            case APIResponse.NETWORK_ERROR: return "Network error";
             case APIResponse.INTERNAL_SERVER_ERROR: return "Internal server error";
             case APIResponse.REQUEST_TIMEOUT: return "Request timeout";
             case APIResponse.CONFLICT: return "Conflict";
