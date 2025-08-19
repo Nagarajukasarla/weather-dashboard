@@ -27,14 +27,13 @@ jobs:
             
             - name: Build
               run: bun run build
-            
+
             - name: Upload production-ready build
               uses: actions/upload-artifact@v4
+
+              # Skip if running in local environment
+              if: ${{ !env.ACT }}
               with:
                 name: dist
                 path: dist
-            
-
-
-
             
