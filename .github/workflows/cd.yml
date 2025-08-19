@@ -21,7 +21,7 @@ jobs:
               with:
                 name: dist
                 path: dist
-                run-id: ${{ github.event.workflow_run.id }}
+                run-id: ${{ github.event.workflow_run.workflow_run_id }}
 
             - name: Install Netlify CLI
               run: npm install -g netlify-cli
