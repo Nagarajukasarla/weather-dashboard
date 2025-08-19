@@ -23,7 +23,7 @@ jobs:
                   path: dist
                   github-token: ${{ secrets.GITHUB_TOKEN }}
                   repository: ${{ github.repository }}
-                  run-id: ${{ github.event.workflow_run.workflow_id }}
+                  run-id: ${{ github.event.workflow_run.id }}
 
             - name: Install Netlify CLI
               run: npm install -g netlify-cli
