@@ -1,12 +1,15 @@
 name: CI
 
+# Event Triggers
 on:
     push:
         branches: [master]
     pull_request:
         branches: [master]
 
+# Job
 jobs:
+    # Build Job
     build:
         runs-on: ubuntu-latest
         
