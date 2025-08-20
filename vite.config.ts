@@ -5,7 +5,7 @@ import leafletDrawFix from "./vite.leaflet-draw.js";
 
 export default defineConfig({
     plugins: [react(), commonjs(), leafletDrawFix()],
-    base: "/apps/weather-dashboard",
+    base: "/",
     build: {
         outDir: "dist",
         minify: "esbuild",
