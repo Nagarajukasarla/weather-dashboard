@@ -38,6 +38,7 @@ const DaySelector: React.FC<DaySelectorProps> = ({ value, min, max, onChange }) 
                 <p style={{
                     fontSize: "14px",
                     fontWeight: "600",
+                    color: "#FFFFFF",
                 }}>
                     {String(value)}
                 </p>

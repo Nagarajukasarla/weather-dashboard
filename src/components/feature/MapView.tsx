@@ -1,18 +1,17 @@
+import { fetchTemperature } from "@/api/weather";
+import type APIResponse from "@/classes/APIResponse";
+import type { PopupType } from "@/components/core/Popup";
+import Popup from "@/components/core/Popup";
+import { type RootState } from "@/state";
+import { addShape, deleteShape, updateShape } from "@/state/mapSlice";
+import type { MapAction } from "@/types/map";
+import { getPolygonCenter, getTemperatureColor } from "@/utils/map";
 import L, { type LatLngLiteral, type LeafletEvent } from "leaflet";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FeatureGroup, MapContainer, TileLayer } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import { fetchTemperature } from "../../api/weather";
-import "../../assets/mapView.css";
-import type APIResponse from "../../classes/APIResponse";
-import { type RootState } from "../../state";
-import { addShape, deleteShape, updateShape } from "../../state/mapSlice";
-import type { MapAction } from "../../types/map";
-import { getPolygonCenter, getTemperatureColor } from "../../utils/map";
-import type { PopupType } from "./Popup";
-import Popup from "./Popup";
 
 type MapViewProps = {
     onAction: (action: MapAction) => void;
@@ -27,18 +26,6 @@ const MapView = ({ onAction }: MapViewProps) => {
 
     // flag to ignore click callbacks while delete toolbar is active
     const deleteModeRef = useRef<boolean>(false);
-
-    // Attach click handler to a raw Leaflet layer
-    // We attach AFTER the layer is added to the featureGroup in create, and also when rehydrating from Redux.
-    // const attachClickHandler = (layer: any, id: string) => {
-    //
-    //     layer.off && layer.off("click");
-    //     layer.on("click", () => {
-    //         if (!deleteModeRef.current) {
-    //             onAction({ type: "CLICK", id });
-    //         }
-    //     });
-    // };
 
     const attachClickHandler = useCallback(
         (layer: any, id: string) => {
@@ -223,6 +210,7 @@ const MapView = ({ onAction }: MapViewProps) => {
                 center={[20.5937, 78.9629]}
                 zoom={10}
                 scrollWheelZoom={true}
+                // style={{ height: "100%", width: "100%" }}
                 style={{ height: "100%", width: "100%" }}
             >
                 {/* FeatureGroup ref receives the underlying Leaflet FeatureGroup instance */}

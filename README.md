@@ -1,26 +1,65 @@
+# Weather Dashboard
 
-A modern, interactive weather dashboard built with React, TypeScript, and Vite. Visualize weather data with interactive maps and charts.
+<div align="center">
+  <img src="src/assets/screenshots/Mapview.png" alt="Weather Dashboard" width="800">
+</div>
 
-## Features
+[![React](https://img.shields.io/badge/React-18.2.0-blue.svg?style=for-the-badge&logo=react)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7.2-blue.svg?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-6.2.0-purple.svg?style=for-the-badge&logo=vite)](https://vitejs.dev/)
 
-- Interactive map with shape drawing tools
-- Real-time weather data visualization
-- Temperature, humidity, wind speed, and precipitation metrics
-- Responsive design with a modern UI
-- Data persistence using localStorage
-- Interactive charts for weather trends
 
-## Tech Stack
+## 🌦️ About The Project
 
-- React 18 with TypeScript
-- Vite for fast development and builds
-- Redux for state management
-- Ant Design for UI components
-- Leaflet and React-Leaflet for maps
-- Recharts for data visualization
-- Open-Meteo API for weather data
+A modern, interactive weather dashboard that provides real-time weather data visualization through interactive maps and detailed metrics. The application enables users to draw custom shapes on the map to analyze weather data for specific geographic areas, featuring an intuitive time slider for exploring historical weather patterns and trends.
 
-## Getting Started
+## 🌍 Live Demo
+
+Check out the live demo: [Weather Dashboard](https://www.weather-dashboards.nagarajukasarla.live)
+
+## 📸 Screenshots
+
+<div align="center">
+  <img src="src/assets/screenshots/Mapview.png" alt="Map View" width="400" style="margin-right: 10px;">
+  <img src="src/assets/screenshots/ChartsView.png" alt="Charts View" width="400">
+  <img src="src/assets/screenshots/LineChartView.png" alt="Line Chart" width="400">
+</div>
+
+## 🚀 Features
+
+- **🌍 Interactive Map**
+  - Draw custom shapes to define specific geographic areas for weather analysis
+  - Pan and zoom to explore different regions with detailed map layers
+  - Get precise coordinates and elevation data for any location
+
+- **📊 Advanced Data Visualization**
+  - **Line Charts**: Track temperature, humidity, and other metrics over time
+  - **Pie Charts**: Visualize weather condition distributions and precipitation types
+  - **Bar Graphs**: Compare weather metrics across different time periods
+
+- **🔄 Real-time Data Integration**
+  - Live weather updates with configurable refresh intervals
+  - Historical weather data analysis with customizable date ranges
+  - Animated weather transitions and forecast predictions
+
+- **🎚️ Interactive Controls**
+  - Time sliders to explore historical weather patterns
+  - Toggle switches for different weather parameters
+
+## 🛠️ Built With
+
+- [React](https://reactjs.org/) - Frontend library
+- [TypeScript](https://www.typescriptlang.org/) - Type safety
+- [Vite](https://vitejs.dev/) - Build tool and development server
+- [Redux](https://redux.js.org/) - State management
+- [Ant Design](https://ant.design/) - UI components
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [Shadcn UI](https://ui.shadcn.com/) - UI components appearance
+- [Leaflet](https://leafletjs.com/) - Interactive maps
+- [Recharts](https://recharts.org/) - Data visualization
+- [Open-Meteo API](https://open-meteo.com/) - Weather data
+
+## 🚀 Getting Started
 
 1. Clone the repository:
    ```bash
@@ -44,27 +83,25 @@ A modern, interactive weather dashboard built with React, TypeScript, and Vite. 
 
 4. Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-## Project Structure
+## 📁 Project Structure
 
-- `src/` - Source code
-  - `components/` - Reusable React components
-    - `core/` - Core UI components
-    - `feature/` - Feature-specific components
-    - `layouts/` - Page layouts
-  - `state/` - Redux store and slices
-  - `types/` - TypeScript type definitions
-  - `utils/` - Utility functions
-  - `api/` - API integration
+```
+src/
+├── api/               # API integration
+├── assets/            # Static assets
+├── classes/           # Classes
+├── constants/         # Constants
+├── components/        # Reusable components
+│   ├── core/          # Core UI components
+│   ├── feature/       # Feature-specific components
+│   └── layouts/       # Page layouts
+├── context/           # Context
+├── hooks/             # Custom hooks
+├── state/             # Redux store and slices
+├── types/             # TypeScript type definitions
+└── utils/             # Utility functions
+```
 
-## Available Scripts
+## 📝 License
 
-- `dev` - Start development server
-- `build` - Build for production
-- `preview` - Preview production build locally
-- `test` - Run tests
-- `lint` - Run ESLint
-- `typecheck` - Run TypeScript type checking
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Distributed under the MIT License. See `LICENSE` for more information.
