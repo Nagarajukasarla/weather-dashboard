@@ -28,6 +28,11 @@ jobs:
             - name: Type Check
               run: bunx tsc --noEmit
 
+            - name: Create .env.production from GitHub secrets
+              run: |
+                echo "VITE_WEATHER_API_BASE_URL=${{ secrets.VITE_WEATHER_API_BASE_URL }}"
+                echo "VITE_DEBUG=${{ secrets.VITE_DEBUG }}" > .env.production
+
             - name: Build
               run: bun run build
 
