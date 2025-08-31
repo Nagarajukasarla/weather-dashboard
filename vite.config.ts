@@ -1,11 +1,17 @@
-import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
+import path from "path";
+import { defineConfig } from "vite";
 import commonjs from "vite-plugin-commonjs";
 import leafletDrawFix from "./vite.leaflet-draw.js";
 
 export default defineConfig({
     plugins: [react(), commonjs(), leafletDrawFix()],
     base: "/",
+    resolve: {
+        alias: {
+            "@": path.resolve(__dirname, "src"),
+        },
+    },
     build: {
         outDir: "dist",
         minify: "esbuild",
@@ -21,7 +27,13 @@ export default defineConfig({
                 },
                 chunkFileNames: "assets/js/[name]-[hash].js",
                 entryFileNames: "assets/js/[name]-[hash].js",
-                assetFileNames: "assets/[ext]/[name]-[hash][extname]",
+                assetFileNames: assetInfo => {
+                    // Exclude screenshots from output
+                    if (assetInfo.names && assetInfo.names.includes("src/assets/screenshots/")) {
+                        return "";
+                    }
+                    return "assets/[ext]/[name]-[hash][extname]";
+                },
                 externalLiveBindings: false,
             },
         },
@@ -42,5 +54,8 @@ export default defineConfig({
             "react-leaflet-draw",
             "uuid",
         ],
+    },
+    server: {
+        allowedHosts: [".ngrok-free.app"],
     },
 });

@@ -33,14 +33,14 @@ export const getTransformedWeatherData = (weatherResponse: OpenMeteoResponse | n
     }
     const { hourly } = weatherResponse;
     const { temperature_2m, precipitation, relative_humidity_2m, wind_speed_10m, weather_code } = hourly;
-    const minTemperature = Math.min(...temperature_2m) + "°C";
-    const maxTemperature = Math.max(...temperature_2m) + "°C";
-    const minHumidity = Math.min(...relative_humidity_2m) + "%";
-    const maxHumidity = Math.max(...relative_humidity_2m) + "%";
-    const minWindSpeed = Math.min(...wind_speed_10m) + "m/s";
-    const maxWindSpeed = Math.max(...wind_speed_10m) + "m/s";
-    const minPrecipitation = Math.min(...precipitation) + "mm";
-    const maxPrecipitation = Math.max(...precipitation) + "mm";
+    const minTemperature = Math.min(...temperature_2m);
+    const maxTemperature = Math.max(...temperature_2m);
+    const minHumidity = Math.min(...relative_humidity_2m);
+    const maxHumidity = Math.max(...relative_humidity_2m);
+    const minWindSpeed = Math.min(...wind_speed_10m);
+    const maxWindSpeed = Math.max(...wind_speed_10m);
+    const minPrecipitation = Math.min(...precipitation);
+    const maxPrecipitation = Math.max(...precipitation);
     const weatherCategory = getWeatherCategoryPercentages(weather_code);
     const weatherTimeline = getWeatherTimeLine(weatherResponse.hourly.time, weatherResponse.hourly);
 
@@ -57,7 +57,7 @@ export const getTransformedWeatherData = (weatherResponse: OpenMeteoResponse | n
         weatherTimeline: weatherTimeline,
     };
     return dashboardData;
-}
+};
 
 /**
  * Returns an array of ContinuesData objects representing the weather data at each hour in the given weather response.
@@ -67,22 +67,25 @@ export const getTransformedWeatherData = (weatherResponse: OpenMeteoResponse | n
  */
 const getWeatherTimeLine = (dates: string[], hourlyData: HourlyData): ContinuesData[] => {
     const result: ContinuesData[] = [];
-    if (dates && dates.length > 0 && 
-        hourlyData.relative_humidity_2m && 
+    if (
+        dates &&
+        dates.length > 0 &&
+        hourlyData.relative_humidity_2m &&
         hourlyData.relative_humidity_2m.length > 0 &&
-        hourlyData.temperature_2m && hourlyData.temperature_2m.length > 0
+        hourlyData.temperature_2m &&
+        hourlyData.temperature_2m.length > 0
     ) {
         dates.forEach((date, idx) => {
             result.push({
                 dateLabel: date,
                 temperature: Number(hourlyData.temperature_2m[idx].toFixed(1)),
                 feelsLike: Number((((Math.random() * 2) % 3) + hourlyData.temperature_2m[idx]).toFixed(1)),
-                humidity: Number(hourlyData.relative_humidity_2m[idx].toFixed(1))
+                humidity: Number(hourlyData.relative_humidity_2m[idx].toFixed(1)),
             });
         });
     }
     return result;
-}
+};
 
 /**
  * Returns the step size for the hourly temperature array based on the given time difference in days.
@@ -93,11 +96,10 @@ const getWeatherTimeLine = (dates: string[], hourlyData: HourlyData): ContinuesD
 export const getHourlyStep = (diff: number): number => {
     if (diff < 5) {
         return 24 / diff;
-    }
-    else {
+    } else {
         return 1;
     }
-}
+};
 
 /**
  * Calculates the percentage of each weather category in the given weather codes array.
@@ -106,20 +108,20 @@ export const getHourlyStep = (diff: number): number => {
  */
 const getWeatherCategoryPercentages = (weatherCodes: number[]): WeatherCategory[] => {
     const categoryMap: Record<WeatherCategoryType, number[]> = {
-        "Sunny": [0, 1, 2],
-        "Cloudy": [3, 45, 48],
-        "Rainy": [51, 53, 55, 61, 63, 65, 80, 81, 82],
-        "Stormy": [95, 96, 99],
-        "Snowy": [71, 73, 75, 77]
+        Sunny: [0, 1, 2],
+        Cloudy: [3, 45, 48],
+        Rainy: [51, 53, 55, 61, 63, 65, 80, 81, 82],
+        Stormy: [95, 96, 99],
+        Snowy: [71, 73, 75, 77],
     };
 
     // Initialize category counters
     const counts: Record<WeatherCategoryType, number> = {
-        "Sunny": 0,
-        "Cloudy": 0,
-        "Rainy": 0,
-        "Stormy": 0,
-        "Snowy": 0
+        Sunny: 0,
+        Cloudy: 0,
+        Rainy: 0,
+        Stormy: 0,
+        Snowy: 0,
     };
 
     weatherCodes.forEach(code => {
@@ -127,16 +129,16 @@ const getWeatherCategoryPercentages = (weatherCodes: number[]): WeatherCategory[
             if (categoryMap[category].includes(code)) {
                 counts[category]++;
             }
-        })
-    })
+        });
+    });
 
     const total = weatherCodes.length;
 
-    return (Object.keys(counts) as WeatherCategoryType[]).map((category) => ({
+    return (Object.keys(counts) as WeatherCategoryType[]).map(category => ({
         type: category,
-        value: parseFloat(((counts[category] / total) * 100).toFixed(1))
-    }))
-}
+        value: parseFloat(((counts[category] / total) * 100).toFixed(1)),
+    }));
+};
 
 /**
  * Returns a chart data array with the average temperature for each day in the given dateWithTemperatures array.
@@ -150,7 +152,7 @@ export const getDayWiseAverageData = (weatherTimeline: ContinuesData[]): Continu
     let currentHumiditySum = 0;
     let currentFeelsLikeSum = 0;
     let dayCount = 1;
-    
+
     for (let i = 0; i < len; i++) {
         // Get the temperature value from the object (there's only one key-value pair per object)
         const temperature = weatherTimeline[i].temperature;
@@ -160,14 +162,14 @@ export const getDayWiseAverageData = (weatherTimeline: ContinuesData[]): Continu
         currentTemperatureSum += temperature;
         currentHumiditySum += humidity;
         currentFeelsLikeSum += feelsLike;
-        
+
         // Every 24 hours, calculate the average for the day
         if ((i + 1) % 24 === 0) {
-            result.push({ 
-                dateLabel: `Day ${dayCount}`, 
+            result.push({
+                dateLabel: `D-${dayCount}`,
                 temperature: parseFloat((currentTemperatureSum / 24).toFixed(1)),
                 feelsLike: parseFloat((currentFeelsLikeSum / 24).toFixed(1)),
-                humidity: parseFloat((currentHumiditySum / 24).toFixed(1))
+                humidity: parseFloat((currentHumiditySum / 24).toFixed(1)),
             });
             currentTemperatureSum = 0;
             currentFeelsLikeSum = 0;
@@ -175,7 +177,7 @@ export const getDayWiseAverageData = (weatherTimeline: ContinuesData[]): Continu
             dayCount++;
         }
     }
-    
+
     return result;
 };
 
@@ -186,17 +188,47 @@ export const getDayWiseAverageData = (weatherTimeline: ContinuesData[]): Continu
  * @returns {ChartData[]} chart data array
  */
 export const getHourlyData = (date: string, weatherTimeline: ContinuesData[]): ContinuesData[] => {
-    const dayFirstHour = weatherTimeline.findIndex((item) => date.includes(item.dateLabel.split("T")[0]));
+    const dayFirstHour = weatherTimeline.findIndex(item => date.includes(item.dateLabel.split("T")[0]));
 
     let result: ContinuesData[] = [];
     let currentHour = 1;
     for (let i = dayFirstHour; currentHour <= 24; currentHour++, i++) {
-        result.push({ 
-            dateLabel: String(currentHour).padStart(2, "0"), 
+        result.push({
+            dateLabel: String(currentHour).padStart(2, "0"),
             temperature: weatherTimeline[i].temperature,
             feelsLike: weatherTimeline[i].feelsLike,
-            humidity: weatherTimeline[i].humidity
-        })
+            humidity: weatherTimeline[i].humidity,
+        });
     }
     return result;
-}
+};
+
+export const getNivoLineChartData = (data: ContinuesData[]) => {
+    const temperatures: { x: string | number; y: number }[] = [];
+    const humidities: { x: string | number; y: number }[] = [];
+    const feelsLikes: { x: string | number; y: number }[] = [];
+
+    data.forEach(value => {
+        temperatures.push({ x: value["dateLabel"], y: value["temperature"] ?? 0 });
+        humidities.push({ x: value["dateLabel"], y: value["humidity"] ?? 0 });
+        feelsLikes.push({ x: value["dateLabel"], y: value["feelsLike"] ?? 0 });
+    });
+
+    return [
+        {
+            id: "temperature",
+            color: "#ff7300",
+            data: temperatures,
+        },
+        {
+            id: "humidity",
+            color: "#00c2ff",
+            data: humidities,
+        },
+        {
+            id: "feelsLike",
+            color: "#ffb347",
+            data: feelsLikes,
+        },
+    ];
+};

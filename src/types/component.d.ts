@@ -4,7 +4,7 @@ export interface DashboardCardProps {
     value: string[];
     style?: React.CSSProperties;
     bodyStyle?: React.CSSProperties;
-};
+}
 
 export interface CategorizedData {
     label: string;
@@ -20,12 +20,18 @@ export interface ContinuesData {
     temperature: number;
     humidity?: number;
     feelsLike?: number;
-};
+}
 
-export interface BarChartDataProps {
+export interface ChartDataProps {
     data: ContinuesData[];
 }
 
-export interface LineChartDataProps {
-    data: ContinuesData[];
+export type Dimensions = {
+    width?: number;
+    height?: number;
+}
+
+export type WindowSize = {
+    dimensions: Dimensions;
+    device: "lg" | "md" | "sm" | "xs";
 }

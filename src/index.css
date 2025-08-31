@@ -1,28 +1,85 @@
 @import "leaflet-draw/dist/leaflet.draw.css";
 @import "leaflet/dist/leaflet.css";
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        /* Font size */
+        /* --heading-h1: 1.3rem; */
+        --heading-h1: clamp(1.3rem, calc(1vw + 1rem), 1.8rem);
+
+        --background: 0 0% 100%; /* White (#FFFFFF) */
+        --foreground: 222.2 47.4% 11.2%; /* Very Dark Blue-Gray (almost black, ~#0B1324) */
+
+        --primary: 220 90% 56%; /* Bright Blue (~#2979FF, similar to Tailwind's blue-600) */
+        --primary-foreground: 0 0% 100%; /* White (#FFFFFF) */
+
+        --secondary: 210 40% 96%; /* Very Light Blue-Gray (~#F1F5F9, Tailwind slate-100) */
+        --secondary-foreground: 222.2 47.4% 11.2%; /* Very Dark Blue-Gray (~#0B1324 again) */
+
+        --border-normal: rgba(255, 255, 255, 0.1); /*Light Gray-Blue (~#E2E8F0, Tailwind slate-200) */
+        --border-hard: rgba(255, 255, 255, 0.2);
+        --ring: 215 20.2% 65.1%; /* Focus ring, Muted Blue-Gray (~#94A3B8, Tailwind slate-400) */
+    }
+
+    .dark {
+        /* Font size */
+        /* Headings & titles */
+        --heading-h1: clamp(1.3rem, calc(1vw + 1rem), 1.8rem);
+        --heading-h2: clamp(1rem, calc(0.5vw + 0.8rem), 1.2rem);
+
+        /* Normal text */
+        --text-t1: clamp(1rem, calc(0.5vw + 0.8rem), 1rem);
+        --text-t2: clamp(0.5rem, calc(0.5vw + 0.8rem), 0.9rem);
+        --text-t3: clamp(0.45rem, calc(0.5vw + 0.75rem), 0.8rem);
+
+        --background: 222.2 47.4% 11.2%; /* Very Dark Blue-Gray (~#0B1324, like Tailwind slate-950) */
+        --foreground: 210 40% 98%; /* Almost White (~#F8FAFC, Tailwind slate-50) */
+
+        --primary: 210 100% 45%; /* Strong Blue (~#0D6EFD, Bootstrap primary blue) */
+        --primary-foreground: 0 0% 100%; /* White (#FFFFFF) */
+
+        --secondary: 217.2 32.6% 17.5%; /* Dark Grayish Blue (~#1E293B, Tailwind slate-800) */
+        --secondary-foreground: 210 40% 98%; /* Almost White (~#F8FAFC) */
+        --border: rgba(255, 255, 255, 0.1); /*Same as secondary (~#1E293B) */
+        --ring: 215 20.2% 65.1%; /* Focus ring, Medium Gray-Blue (~#94A3B8, Tailwind slate-400) */
+
+        /* Card Wrapper */
+        --cardWrapper-title: #d1d5db;
+        --cardWrapper-noData-title: #e5e7eb;
+        --cardWrapper-noData-description: #9ca3af;
+
+        /* Charts Tooltip */
+        --tooltip-text-value: #93c5fd;
+    }
+}
+
 html,
 body,
 #root {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  background-color: #111827;
-  width: 100%;
-  box-sizing: border-box;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: #111827;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+        "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 /* Disable zoom and shadow effects on AntD slider handle */
 .ant-slider .ant-slider-handle {
-  transform: none !important;
-  transition: none !important;
-  box-shadow: none !important;
+    transform: none !important;
+    transition: none !important;
+    box-shadow: none !important;
 }
 
 .ant-slider .ant-slider-handle:hover,
 .ant-slider .ant-slider-handle:active,
 .ant-slider .ant-slider-handle:focus {
-  transform: none !important;
-  box-shadow: none !important;
+    transform: none !important;
+    box-shadow: none !important;
 }

@@ -1,28 +1,33 @@
+import { fetchWeather } from "@/api/weather";
+import type APIResponse from "@/classes/APIResponse";
+import DashboardCard from "@/components/core/CCard";
+import Popup, { type PopupType } from "@/components/core/Popup";
+import Spinner from "@/components/core/Spinner";
+import DaySelector from "@/components/feature/DaySelector";
+import FBarChart from "@/components/feature/FBarChart";
+import DashboardPieChart from "@/components/feature/FPieChart";
+import MapView from "@/components/feature/MapView";
+import TimelineSlider from "@/components/feature/TimelineSlider";
+import type { RootState } from "@/state";
+import type { OpenMeteoResponse } from "@/types/api";
+import type { CategorizedData, ContinuesData } from "@/types/component";
+import type { MapAction, PolygonShape } from "@/types/map";
+import type { DashboardData } from "@/utils/dashboard";
+import {
+    getDayWiseAverageData,
+    getHourlyData,
+    getNivoLineChartData,
+    getTransformedWeatherData,
+} from "@/utils/dashboard";
+import { getPolygonCenter } from "@/utils/map";
 import { BarChartOutlined, DotChartOutlined, SlidersOutlined, StockOutlined } from "@ant-design/icons";
 import { Row, Select } from "antd";
 import dayjs from "dayjs";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { fetchWeather } from "../../api/weather";
-import "../../assets/content.css";
-import type APIResponse from "../../classes/APIResponse";
-import type { RootState } from "../../state";
-import type { OpenMeteoResponse } from "../../types/api";
-import type { CategorizedData, ContinuesData } from "../../types/component";
-import type { MapAction, PolygonShape } from "../../types/map";
-import type { DashboardData } from "../../utils/dashboard";
-import { getDayWiseAverageData, getHourlyData, getTransformedWeatherData } from "../../utils/dashboard";
-import { getPolygonCenter } from "../../utils/map";
-import CardWrapper from "../core/CardWrapper";
-import DashboardBarChart from "../core/DashboardBarChart";
-import DashboardCard from "../core/DashboardCard";
-import DashboardLineChart from "../core/DashboardLineChart";
-import DashboardPieChart from "../core/DashboardPieChart";
-import Spinner from "../core/Spinner";
-import TimelineSlider from "../core/TimelineSlider";
-import DaySelector from "../feature/DaySelector";
-import MapView from "../feature/MapView";
-import Popup, { type PopupType } from "../feature/Popup";
+import CardWrapper from "../feature/CardWrapper";
+import DualAxisLineChart from "../feature/DualAxisLineChart";
+// import { Slider } from "../ui/Slider";
 
 const Content: React.FC = () => {
     const { start_date, end_date } = useSelector((state: RootState) => state.time);
@@ -40,7 +45,11 @@ const Content: React.FC = () => {
     const [currentBarChartDate, setCurrentBarChartDate] = useState<string>("");
     const [currentLineChartDate, setCurrentLineChartDate] = useState<string>("");
 
-    const [popup, setPopup] = useState<{ visible: boolean; message: string; type: PopupType }>({ visible: false, message: "", type: "info" as const });
+    const [popup, setPopup] = useState<{ visible: boolean; message: string; type: PopupType }>({
+        visible: false,
+        message: "",
+        type: "info" as const,
+    });
 
     const prevShapesCount = useRef(0);
 
@@ -264,7 +273,7 @@ const Content: React.FC = () => {
     };
 
     return (
-        <main className="content-root">
+        <div>
             {loading && <Spinner />}
             <Popup
                 visible={popup.visible}
@@ -272,60 +281,54 @@ const Content: React.FC = () => {
                 type={popup.type}
                 onClose={() => setPopup({ ...popup, visible: false })}
             />
-            <div
-                style={{
-                    margin: "20px 0",
-                    padding: 20,
-                    height: "50%",
-                    backgroundColor: "#1f2937",
-                    backdropFilter: "blur(4px)",
-                    borderRadius: "8px",
-                    border: "1px solid rgba(255, 255, 255, 0.1)",
-                }}
-            >
+            <CardWrapper className="w-full mt-6 md:flex-[0_0_calc(33%-10px)] h-[350px]">
                 <MapView onAction={mapActionHandler} />
+            </CardWrapper>
+            <CardWrapper className="w-full mt-6 md:flex-[0_0_calc(33%-10px)]">
+                <TimelineSlider />
+            </CardWrapper>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-5 w-full mt-6">
+                <div className="flex justify-start">
+                    <DashboardCard
+                        icon={<BarChartOutlined />}
+                        title="Temperature"
+                        value={[weatherData?.maxTemperature ?? "0", weatherData?.minTemperature ?? "0"]}
+                        unit="°C"
+                    />
+                </div>
+                <div className="flex justify-end md:justify-center">
+                    <DashboardCard
+                        icon={<DotChartOutlined />}
+                        title="Humidity"
+                        value={[weatherData?.maxHumidity ?? "0", weatherData?.minHumidity ?? "0"]}
+                        unit="%"
+                    />
+                </div>
+                <div className="flex justify-start md:justify-center">
+                    <DashboardCard
+                        icon={<StockOutlined />}
+                        title="Wind Speed"
+                        value={[weatherData?.maxWindSpeed ?? "0", weatherData?.minWindSpeed ?? "0"]}
+                        unit="m/s"
+                    />
+                </div>
+                <div className="flex justify-end">
+                    <DashboardCard
+                        icon={<SlidersOutlined />}
+                        title="Precipitation"
+                        value={[weatherData?.maxPrecipitation ?? "0", weatherData?.minPrecipitation ?? "0"]}
+                        unit="mm"
+                    />
+                </div>
             </div>
-            <TimelineSlider />
-            <Row style={{ padding: "0", flexWrap: "wrap", rowGap: "20px" }} justify="space-between">
-                <DashboardCard
-                    icon={<BarChartOutlined />}
-                    title="Temperature"
-                    value={[weatherData?.minTemperature ?? "0°C", weatherData?.maxTemperature ?? "0°C"]}
-                />
-                <DashboardCard
-                    icon={<DotChartOutlined />}
-                    title="Humidity"
-                    value={[weatherData?.minHumidity ?? "0%", weatherData?.maxHumidity ?? "0%"]}
-                />
-                <DashboardCard
-                    icon={<StockOutlined />}
-                    title="Wind Speed"
-                    value={[weatherData?.minWindSpeed ?? "0m/s", weatherData?.maxWindSpeed ?? "0m/s"]}
-                />
-                <DashboardCard
-                    icon={<SlidersOutlined />}
-                    title="Precipitation"
-                    value={[weatherData?.minPrecipitation ?? "0mm", weatherData?.maxPrecipitation ?? "0mm"]}
-                />
-            </Row>
-            <Row
-                style={{
-                    margin: "30px 0",
-                    padding: "0",
-                    flexWrap: "wrap",
-                    justifyContent: "space-between",
-                }}
-            >
-                <CardWrapper title="Weather Condition" styles={{ width: "26%", height: "370px" }}>
+            <Row className="flex flex-wrap gap-5 justify-between mt-6 p-0">
+                <CardWrapper title="Weather Condition" className="w-full md:flex-[0_0_calc(33%-10px)] h-[470px]">
                     <DashboardPieChart data={memoizedPieChartData} />
                 </CardWrapper>
-
                 <CardWrapper
                     title={`${barChartView === "hourly" ? "Hourly" : "Daily Average"} Temparature`}
-                    styles={{
-                        width: "64%",
-                        height: "370px",
-                    }}
+                    className="w-full md:flex-[0_0_calc(67%-10px)] h-[470px]"
                     slot={
                         <div
                             style={{
@@ -355,17 +358,13 @@ const Content: React.FC = () => {
                         </div>
                     }
                 >
-                    <DashboardBarChart data={memoizedBarChartData} />
+                    <FBarChart data={memoizedBarChartData} />
                 </CardWrapper>
             </Row>
-
-            <Row style={{ padding: "0 0 40px 0" }}>
+            <Row className="flex flex-1 flex-wrap mt-6 p-0">
                 <CardWrapper
                     title={`${lineChartView === "hourly" ? "Hourly" : "Daily Average"} Timline`}
-                    styles={{
-                        width: "100%",
-                        height: "390px",
-                    }}
+                    className="w-full md:flex-[0_0_calc(100%-10px)] h-[490px]"
                     slot={
                         <div
                             style={{
@@ -395,10 +394,10 @@ const Content: React.FC = () => {
                         </div>
                     }
                 >
-                    <DashboardLineChart data={memoizedLineChartData} />
+                    <DualAxisLineChart data={getNivoLineChartData(memoizedLineChartData)} />
                 </CardWrapper>
             </Row>
-        </main>
+        </div>
     );
 };
 
