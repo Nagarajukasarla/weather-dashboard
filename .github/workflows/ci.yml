@@ -3,17 +3,20 @@ name: CI
 # Event Triggers
 on:
     push:
-        branches: [master]        # For production
-        # branches: ["*"]             # For testing
+        # branches: [master]        # For production
+        branches: ["*"]         # For testing
     pull_request:
-        branches: [master]        # For production
-        # branches: ["*"]             # For testing
+        # branches: [master]        # For production
+        branches: ["*"]         # For testing
         
 # Job
 jobs:
     # Build Job
     build:
         runs-on: ubuntu-latest
+        env:
+            VITE_WEATHER_API_BASE_URL: ${{ secrets.VITE_WEATHER_API_BASE_URL }}
+            VITE_DEBUG: ${{ secrets.VITE_DEBUG }}
 
         steps:
             - name: Checkout repository
@@ -30,10 +33,14 @@ jobs:
             - name: Type Check
               run: bunx tsc --noEmit
 
-            - name: Create .env.production from GitHub secrets
-              run: |
-                echo "VITE_WEATHER_API_BASE_URL=${{ secrets.VITE_WEATHER_API_BASE_URL }}"
-                echo "VITE_DEBUG=${{ secrets.VITE_DEBUG }}" > .env.production
+            - name: Make scripts executable
+              run: chmod +x scripts/check-secrets.sh scripts/create-env.sh
+
+            - name: Validate secrets
+              run: ./scripts/check-secrets.sh
+
+            - name: Create .env.production
+              run: ./scripts/create-env.sh
 
             - name: Build
               run: bun run build
