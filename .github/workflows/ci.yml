@@ -33,6 +33,12 @@ jobs:
             - name: Type Check
               run: bunx tsc --noEmit
 
+            - name: list out all files
+              run: ls -a
+            
+            - name: list out script folder
+              run: ls -a scripts
+
             - name: Make scripts executable
               run: chmod +x scripts/check-secrets.sh scripts/create-env.sh
 
