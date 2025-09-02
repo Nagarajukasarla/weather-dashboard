@@ -17,7 +17,7 @@ module.exports = {
 
                     tooltipTextValue: "#93c5fd",
                     "toggle-muted": "#555555",
-                    "toggle-active": "#A78BFA"
+                    "toggle-active": "#A78BFA",
                 },
                 foreground: {
                     DEFAULT: "hsl(var(--foreground))",
@@ -37,7 +37,7 @@ module.exports = {
                     normal: "var(--border-normal)",
                     hard: "var(--border-hard)",
                 },
-                ring: "hsl(var(--ring))",                
+                ring: "hsl(var(--ring))",
 
                 /** Tooltip text color  <== This is can secondary categorized into secondary surface */
                 "tooltip-text": "hsl(var(--tooltip-text))",
@@ -54,10 +54,19 @@ module.exports = {
                 wrapper: "min(1.5rem, calc(1vw + 0.5rem))",
             },
             fontSize: {
+                "heading-h1": "var(--heading-h1)",
                 "heading-h2": "var(--heading-h2)",
                 "text-t1": "var(--text-t1)",
                 "text-t2": "var(--text-t2)",
                 "text-t3": "var(--text-t3)",
+            },
+            width: {
+                "btn-width-sm": "var(--btn-width-sm)",
+                "btn-width-md": "var(--btn-width-md)",
+            },
+            height: { 
+                "btn-height-sm": "var(--btn-height-sm)" ,
+                "btn-height-md": "var(--btn-height-md)" 
             },
         },
     },

@@ -44,7 +44,7 @@ const CustomTooltip = ({ slice }: { slice: any }) => {
 };
 
 export const DualAxisLineChart: React.FC<Props> = ({ data, height }) => {
-    const log = logger.create("NLineChart");
+    const log = logger.create("DualAxisLineChart");
     const windowDimensions = useMeasure()[2];
     logger.debug("NLineChart: ", windowDimensions);
     const step =
@@ -78,7 +78,9 @@ export const DualAxisLineChart: React.FC<Props> = ({ data, height }) => {
     log.debug("Max temperature - ", maxTemperature);
     log.debug("Max humidity - ", maxHumidity);
 
-    return data && data.length > 0 ? (
+    log.debug("Data: " + JSON.stringify(data));
+
+    return data[0].data && data[0].data.length > 0 ? (
         <div className="relative h-full" style={{ height }}>
             {/* Right axis chart (humidity) */}
             <ResponsiveLine
