@@ -2,14 +2,22 @@ import * as React from "react";
 import * as SliderPrimitive from "@radix-ui/react-slider";
 import { cn } from "@/lib/utils";
 
+interface AdditionalProps extends React.ComponentProps<typeof SliderPrimitive.Root>{
+    trackBackground?: string;
+    trackColor?: string;
+} 
+
 function CSlider({
     className,
     defaultValue,
     value,
     min = 0,
     max = 100,
+    trackBackground = "#555",
+    trackColor = "#a78bfa",
     ...props
-}: React.ComponentProps<typeof SliderPrimitive.Root>) {
+}: AdditionalProps) {
+
     const _values = React.useMemo(
         () => (Array.isArray(value) ? value : Array.isArray(defaultValue) ? defaultValue : [min, max]),
         [value, defaultValue, min, max]
@@ -31,14 +39,14 @@ function CSlider({
         >
             <SliderPrimitive.Track
                 className={cn(
-                    "bg-[#555] relative grow overflow-hidden rounded-full " +
+                    `bg-[${trackBackground}]` + " relative grow overflow-hidden rounded-full " +
                         "data-[orientation=horizontal]:h-3 data-[orientation=horizontal]:w-full " +
                         "data-[orientation=vertical]:h-3 data-[orientation=vertical]:w-3"
                 )}
             >
                 <SliderPrimitive.Range
                     className={cn(
-                        "bg-[#a78bfa] absolute " +
+                        `bg-[${trackColor}]` + " absolute " +
                             "data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full"
                     )}
                 />

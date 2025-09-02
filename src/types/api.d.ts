@@ -1,4 +1,3 @@
-
 interface HourlyData {
     weather_code: number[];
     time: string[];
