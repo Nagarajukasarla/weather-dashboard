@@ -3,10 +3,12 @@ name: CI
 # Event Triggers
 on:
     push:
-        branches: [master]
+        branches: [master]        # For production
+        # branches: ["*"]             # For testing
     pull_request:
-        branches: [master]
-
+        branches: [master]        # For production
+        # branches: ["*"]             # For testing
+        
 # Job
 jobs:
     # Build Job
