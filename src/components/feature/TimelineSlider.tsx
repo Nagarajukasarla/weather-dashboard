@@ -65,6 +65,8 @@ const TimelineSlider: React.FC = () => {
                         max={max}
                         step={1}
                         className="mb-4"
+                        trackBackground="#555"
+                        trackColor="#a78bfa"
                     />
                 ) : (
                     <CSlider

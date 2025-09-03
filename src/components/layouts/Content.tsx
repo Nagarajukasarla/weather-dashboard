@@ -21,7 +21,7 @@ import {
 } from "@/utils/dashboard";
 import { getPolygonCenter } from "@/utils/map";
 import { BarChartOutlined, DotChartOutlined, SlidersOutlined, StockOutlined } from "@ant-design/icons";
-import { Row, Select } from "antd";
+import { Select } from "antd";
 import dayjs from "dayjs";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useSelector } from "react-redux";
@@ -322,7 +322,7 @@ const Content: React.FC = () => {
                     />
                 </div>
             </div>
-            <Row className="flex flex-wrap gap-5 justify-between mt-6 p-0">
+            <div className="flex flex-wrap gap-5 justify-between mt-6 p-0">
                 <CardWrapper title="Weather Condition" className="w-full md:flex-[0_0_calc(33%-10px)] h-[470px]">
                     <DashboardPieChart data={memoizedPieChartData} />
                 </CardWrapper>
@@ -360,8 +360,8 @@ const Content: React.FC = () => {
                 >
                     <FBarChart data={memoizedBarChartData} />
                 </CardWrapper>
-            </Row>
-            <Row className="flex flex-1 flex-wrap mt-6 p-0">
+            </div>
+            <div className="flex flex-1 flex-wrap mt-6 p-0">
                 <CardWrapper
                     title={`${lineChartView === "hourly" ? "Hourly" : "Daily Average"} Timline`}
                     className="w-full md:flex-[0_0_calc(100%-10px)] h-[490px]"
@@ -396,7 +396,7 @@ const Content: React.FC = () => {
                 >
                     <DualAxisLineChart data={getNivoLineChartData(memoizedLineChartData)} />
                 </CardWrapper>
-            </Row>
+            </div>
         </div>
     );
 };

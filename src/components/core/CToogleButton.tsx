@@ -11,17 +11,16 @@ const CToogleButton: React.FC<CToogleButtonProps> = ({ value, setValue, labels, 
     const isArray = Array.isArray(labels);
     return (
         <>
-            <div className="flex justify-center gap-2 sm:gap-3">
+            <div className="flex">
                 <span
                     className={`
-                        text-text-t1 text-foreground-surface 
+                        text-text-t1 text-foreground-surface mr-3
                         ${(position && position === "left") || isArray ? " block inline " : " block hidden "}
                     `}
                 >
                     {isArray && labels ? labels[0] : labels}
-                    
                 </span>
-                <label className="relative w-[50px] h-[24px]">
+                <label className="relative w-[50px] h-[24px] mr-3">
                     <input
                         type="checkbox"
                         checked={value}

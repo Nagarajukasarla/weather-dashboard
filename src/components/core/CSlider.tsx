@@ -39,15 +39,21 @@ function CSlider({
         >
             <SliderPrimitive.Track
                 className={cn(
-                    `bg-[${trackBackground}]` + " relative grow overflow-hidden rounded-full " +
-                        "data-[orientation=horizontal]:h-3 data-[orientation=horizontal]:w-full " +
-                        "data-[orientation=vertical]:h-3 data-[orientation=vertical]:w-3"
+                    "relative grow overflow-hidden rounded-full",
+                    {
+                        "bg-[#555]": trackBackground === "#555",
+                    },
+                    "data-[orientation=horizontal]:h-3 data-[orientation=horizontal]:w-full",
+                    "data-[orientation=vertical]:h-3 data-[orientation=vertical]:w-3"
                 )}
             >
                 <SliderPrimitive.Range
                     className={cn(
-                        `bg-[${trackColor}]` + " absolute " +
-                            "data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full"
+                        "absolute",
+                        {
+                            "bg-[#a78bfa]": trackColor === "#a78bfa",
+                        },
+                        "data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full"
                     )}
                 />
             </SliderPrimitive.Track>

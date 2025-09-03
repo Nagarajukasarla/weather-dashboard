@@ -5,7 +5,6 @@ const Header: React.FC = () => {
     return (
         <div
             className="
-                flex items-center justify-between 
                 w-full 
                 px-relative-x
                 py-relative-y
@@ -16,8 +15,8 @@ const Header: React.FC = () => {
                 backdrop-blur-sm
             "
         >
-            <div className="flex items-center gap-2 sm:gap-4">
-                <BarChartOutlined className="text-header-icon text-xl sm:text-2xl" />
+            <div className="flex">
+                <BarChartOutlined className="text-header-icon text-xl sm:text-2xl mr-2" />
                 <h2 className="text-background-foreground text-heading-h1 font-semibold">Analytics Dashboard</h2>
             </div>
         </div>
