@@ -35,3 +35,10 @@ export type WindowSize = {
     dimensions: Dimensions;
     device: "lg" | "md" | "sm" | "xs";
 }
+
+export type Option = {
+    key: string;
+    label: string;
+    value: string;
+    object?: any;
+}

@@ -1,7 +1,7 @@
 import { fetchWeather } from "@/api/weather";
 import type APIResponse from "@/classes/APIResponse";
 import DashboardCard from "@/components/core/CCard";
-import Popup, { type PopupType } from "@/components/core/Popup";
+// import Popup, { type PopupType } from "@/components/core/Popup";
 import Spinner from "@/components/core/Spinner";
 import DaySelector from "@/components/feature/DaySelector";
 import FBarChart from "@/components/feature/FBarChart";
@@ -10,7 +10,7 @@ import MapView from "@/components/feature/MapView";
 import TimelineSlider from "@/components/feature/TimelineSlider";
 import type { RootState } from "@/state";
 import type { OpenMeteoResponse } from "@/types/api";
-import type { CategorizedData, ContinuesData } from "@/types/component";
+import type { CategorizedData, ContinuesData, Option } from "@/types/component";
 import type { MapAction, PolygonShape } from "@/types/map";
 import type { DashboardData } from "@/utils/dashboard";
 import {
@@ -21,13 +21,28 @@ import {
 } from "@/utils/dashboard";
 import { getPolygonCenter } from "@/utils/map";
 import { BarChartOutlined, DotChartOutlined, SlidersOutlined, StockOutlined } from "@ant-design/icons";
-import { Select } from "antd";
+// import { Select } from "antd";
 import dayjs from "dayjs";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import SSelect from "../core/SSelect";
 import CardWrapper from "../feature/CardWrapper";
 import DualAxisLineChart from "../feature/DualAxisLineChart";
+import NewPopupWrapper from "../core/NewPopupWrapper";
+import Popup from "../core/NewPopup";
 // import { Slider } from "../ui/Slider";
+
+const CHART_VIEW_OPTIONS: Option[] = [
+    { key: "1", label: "Hourly", value: "hourly" },
+    { key: "2", label: "Daily", value: "daily" },
+];
+
+const PopupType: Record<string, string> = {
+    success: "success",
+    error: "error",
+    info: "info",
+    warning: "warning",
+};
 
 const Content: React.FC = () => {
     const { start_date, end_date } = useSelector((state: RootState) => state.time);
@@ -39,16 +54,16 @@ const Content: React.FC = () => {
     const [lineChartData, setLineChartData] = useState<ContinuesData[]>([]);
     const [selectedShape, setSelectedShape] = useState<PolygonShape | null>(null);
     const [loading, setLoading] = useState(false);
-    const [barChartView, setBarChartView] = useState("hourly");
-    const [lineChartView, setLineChartView] = useState("hourly");
+    const [barChartView, setBarChartView] = useState<Option>(CHART_VIEW_OPTIONS[0]);
+    const [lineChartView, setLineChartView] = useState<Option>(CHART_VIEW_OPTIONS[0]);
 
     const [currentBarChartDate, setCurrentBarChartDate] = useState<string>("");
     const [currentLineChartDate, setCurrentLineChartDate] = useState<string>("");
 
-    const [popup, setPopup] = useState<{ visible: boolean; message: string; type: PopupType }>({
+    const [popup, setPopup] = useState<{ visible: boolean; message: string; type: keyof typeof PopupType }>({
         visible: false,
         message: "",
-        type: "info" as const,
+        type: "info",
     });
 
     const prevShapesCount = useRef(0);
@@ -56,11 +71,6 @@ const Content: React.FC = () => {
     const memoizedPieChartData = useMemo(() => pieChartData || [], [pieChartData]);
     const memoizedBarChartData = useMemo(() => barChatData || [], [barChatData]);
     const memoizedLineChartData = useMemo(() => lineChartData || [], [lineChartData]);
-
-    const CHART_VIEW_OPTIONS = [
-        { label: "Hourly", value: "hourly" },
-        { label: "Daily", value: "daily" },
-    ];
 
     const getWeather = async (shape: PolygonShape) => {
         try {
@@ -167,9 +177,9 @@ const Content: React.FC = () => {
                     weatherData.weatherTimeline[len - 1].dateLabel
                 )
             ) {
-                if (barChartView.toLowerCase() === "hourly") {
+                if (barChartView.value.toLowerCase() === "hourly") {
                     data = getHourlyData(currentBarChartDate, weatherData.weatherTimeline);
-                } else if (barChartView.toLowerCase() === "daily") {
+                } else if (barChartView.value.toLowerCase() === "daily") {
                     data = getDayWiseAverageData(weatherData.weatherTimeline);
                 }
             }
@@ -190,9 +200,9 @@ const Content: React.FC = () => {
                     weatherData.weatherTimeline[len - 1].dateLabel
                 )
             ) {
-                if (lineChartView.toLowerCase() === "hourly") {
+                if (lineChartView.value.toLowerCase() === "hourly") {
                     data = getHourlyData(currentLineChartDate, weatherData.weatherTimeline);
-                } else if (lineChartView.toLowerCase() === "daily") {
+                } else if (lineChartView.value.toLowerCase() === "daily") {
                     data = getDayWiseAverageData(weatherData.weatherTimeline);
                 }
             }
@@ -275,11 +285,22 @@ const Content: React.FC = () => {
     return (
         <div>
             {loading && <Spinner />}
-            <Popup
+            {/* <Popup
                 visible={popup.visible}
                 message={popup.message}
                 type={popup.type}
                 onClose={() => setPopup({ ...popup, visible: false })}
+            /> */}
+            <NewPopupWrapper
+                isOpen={popup.visible}
+                onClose={() => setPopup({ ...popup, visible: false })}
+                children={
+                    <Popup
+                        title={popup.type}
+                        description={popup.message}
+                        onClose={() => setPopup({ ...popup, visible: false })}
+                    />
+                }
             />
             <CardWrapper className="w-full mt-6 md:flex-[0_0_calc(33%-10px)] h-[350px]">
                 <MapView onAction={mapActionHandler} />
@@ -327,7 +348,7 @@ const Content: React.FC = () => {
                     <DashboardPieChart data={memoizedPieChartData} />
                 </CardWrapper>
                 <CardWrapper
-                    title={`${barChartView === "hourly" ? "Hourly" : "Daily Average"} Temparature`}
+                    title={`${barChartView.value === "hourly" ? "Hourly" : "Daily Average"} Temparature`}
                     className="w-full md:flex-[0_0_calc(67%-10px)] h-[470px]"
                     slot={
                         <div
@@ -338,7 +359,13 @@ const Content: React.FC = () => {
                                 justifyContent: "space-between",
                             }}
                         >
-                            <Select
+                            <SSelect
+                                options={CHART_VIEW_OPTIONS}
+                                value={barChartView}
+                                onValueChange={value => setBarChartView(value)}
+                            />
+
+                            {/* <Select
                                 style={{
                                     width: "100px",
                                     margin: "0 10px",
@@ -346,8 +373,8 @@ const Content: React.FC = () => {
                                 value={barChartView}
                                 options={CHART_VIEW_OPTIONS}
                                 onChange={value => setBarChartView(value)}
-                            />
-                            {!dayjs(start_date).isSame(end_date) && barChartView === "hourly" && (
+                            /> */}
+                            {!dayjs(start_date).isSame(end_date) && barChartView.value === "hourly" && (
                                 <DaySelector
                                     value={currentBarChartDate}
                                     min={start_date}
@@ -363,7 +390,7 @@ const Content: React.FC = () => {
             </div>
             <div className="flex flex-1 flex-wrap mt-6 p-0">
                 <CardWrapper
-                    title={`${lineChartView === "hourly" ? "Hourly" : "Daily Average"} Timline`}
+                    title={`${lineChartView.value === "hourly" ? "Hourly" : "Daily Average"} Timline`}
                     className="w-full md:flex-[0_0_calc(100%-10px)] h-[490px]"
                     slot={
                         <div
@@ -374,16 +401,12 @@ const Content: React.FC = () => {
                                 justifyContent: "space-between",
                             }}
                         >
-                            <Select
-                                style={{
-                                    width: "100px",
-                                    margin: "0 10px",
-                                }}
-                                value={lineChartView}
+                            <SSelect
                                 options={CHART_VIEW_OPTIONS}
-                                onChange={value => setLineChartView(value)}
+                                value={lineChartView}
+                                onValueChange={value => setLineChartView(value)}
                             />
-                            {!dayjs(start_date).isSame(end_date) && lineChartView === "hourly" && (
+                            {!dayjs(start_date).isSame(end_date) && lineChartView.value === "hourly" && (
                                 <DaySelector
                                     value={currentLineChartDate}
                                     min={start_date}

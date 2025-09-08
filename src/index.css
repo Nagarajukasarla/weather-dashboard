@@ -75,7 +75,7 @@ body,
         "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-/* Disable zoom and shadow effects on AntD slider handle */
+/* Disable zoom and shadow effects on AntD slider handle
 .ant-slider .ant-slider-handle {
     transform: none !important;
     transition: none !important;
@@ -87,4 +87,4 @@ body,
 .ant-slider .ant-slider-handle:focus {
     transform: none !important;
     box-shadow: none !important;
-}
+} */

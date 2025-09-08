@@ -1,7 +1,7 @@
 import { fetchTemperature } from "@/api/weather";
 import type APIResponse from "@/classes/APIResponse";
 import type { PopupType } from "@/components/core/Popup";
-import Popup from "@/components/core/Popup";
+// import Popup from "@/components/core/Popup";
 import { type RootState } from "@/state";
 import { addShape, deleteShape, updateShape } from "@/state/mapSlice";
 import type { MapAction } from "@/types/map";
@@ -12,6 +12,8 @@ import { FeatureGroup, MapContainer, TileLayer } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
+import NewPopupWrapper from "../core/NewPopupWrapper";
+import Popup from "../core/NewPopup";
 
 type MapViewProps = {
     onAction: (action: MapAction) => void;
@@ -246,11 +248,22 @@ const MapView = ({ onAction }: MapViewProps) => {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
             </MapContainer>
-            <Popup
+            {/* <Popup
                 visible={popup.visible}
                 message={popup.message}
                 type={popup.type}
                 onClose={() => setPopup({ ...popup, visible: false })}
+            /> */}
+            <NewPopupWrapper
+                isOpen={popup.visible}
+                onClose={() => setPopup({ ...popup, visible: false })}
+                children={
+                    <Popup
+                        title={popup.type}
+                        description={popup.message}
+                        onClose={() => setPopup({ ...popup, visible: false })}
+                    />
+                }
             />
         </>
     );
