@@ -278,8 +278,8 @@ const Content: React.FC = () => {
             {loading && <Spinner />}
             <NewPopupWrapper
                 isOpen={popup.visible}
-                children={
                 onClose={() => setPopup({ ...popup, visible: false })}
+                children={
                     <Popup
                         title={popup.type}
                         content={popup.message}
