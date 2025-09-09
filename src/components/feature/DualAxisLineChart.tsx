@@ -3,19 +3,41 @@ import { useMeasure } from "@/hooks/useMeasure";
 import logger from "@/utils/logger";
 import NoData from "@/components/core/NoData";
 
+/**
+ * Type of XY
+ */
 type XY = { x: string | number; y: number };
 
+
 type SerieWithColor = {
+    /**
+     * ID of the series
+     */
     id: string;
+    /**
+     * Color of the series
+     */
     color?: string;
+    /**
+     * Data of the series
+     */
     data: XY[];
 };
 
 type Props = {
+    /**
+     * Data of the chart
+     */
     data: SerieWithColor[];
+    /**
+     * Height of the chart
+     */
     height?: number | string;
 };
 
+/**
+ * Custom tooltip component
+ */
 const CustomTooltip = ({ slice }: { slice: any }) => {
     // Get all points from the slice
     const points = slice.points || [];
@@ -43,6 +65,9 @@ const CustomTooltip = ({ slice }: { slice: any }) => {
     );
 };
 
+/**
+ * Dual axis line chart component
+ */
 export const DualAxisLineChart: React.FC<Props> = ({ data, height }) => {
     const log = logger.create("DualAxisLineChart");
     const windowDimensions = useMeasure()[2];

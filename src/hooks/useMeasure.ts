@@ -2,6 +2,9 @@ import type { Dimensions, WindowSize } from "@/types/component";
 import logger from "@/utils/logger";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+/**
+ * Custom hook for measuring dimensions
+ */
 export function useMeasure() {
     const [divDimensions, setDivDimensions] = useState<Dimensions>({ width: 0, height: 0 });
     const [windowDimensions, setWindowDimensions] = useState<WindowSize>({ 

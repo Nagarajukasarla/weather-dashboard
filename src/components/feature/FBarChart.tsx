@@ -3,6 +3,9 @@ import NoData from "@/components/core/NoData";
 import type { ChartDataProps } from "@/types/component";
 import React from "react";
 
+/**
+ * Custom tooltip component
+ */
 const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
         return (
@@ -25,6 +28,9 @@ const CustomTooltip = ({ active, payload, label }: any) => {
     return null;
 };
 
+/**
+ * Bar chart component
+ */
 const CBarChart: React.FC<ChartDataProps> = ({ data }) => {
     return data && data.length > 0 ? (
         <div className="flex flex-col h-full">

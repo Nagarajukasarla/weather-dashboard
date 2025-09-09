@@ -2,6 +2,9 @@ import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, X
 import type { ChartDataProps } from "@/types/component";
 import NoData from "@/components/core/NoData";
 
+/**
+ * Custom tooltip component
+ */
 const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
         return (
@@ -31,6 +34,9 @@ const CustomTooltip = ({ active, payload, label }: any) => {
     return null;
 };
 
+/**
+ * Custom legend component
+ */
 const CustomLegend = ({ payload }: any) => {
     return (
         <div
@@ -74,6 +80,9 @@ const CustomLegend = ({ payload }: any) => {
     );
 };
 
+/**
+ * Line chart component
+ */
 const DashboardLineChart: React.FC<ChartDataProps> = ({ data }) => {
     return data && data.length > 0 ? (
         <div

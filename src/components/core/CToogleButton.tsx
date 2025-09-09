@@ -1,12 +1,27 @@
 import React from "react";
 
 interface CToogleButtonProps {
+    /**
+     * Value of the toggle button
+     */
     value: boolean;
+    /**
+     * Function to be called when the toggle button is clicked
+     */
     setValue: (value: boolean) => void;
+    /**
+     * Labels for the toggle button
+     */
     labels?: string[] | string;
+    /**
+     * Position of the labels
+     */
     position?: "left" | "right";
 }
 
+/**
+ * Toggle button component
+ */
 const CToogleButton: React.FC<CToogleButtonProps> = ({ value, setValue, labels, position }) => {
     const isArray = Array.isArray(labels);
     return (

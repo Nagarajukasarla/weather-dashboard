@@ -3,6 +3,9 @@ import SparklesIcon from "@/components/core/SparkIcon";
 import { GithubOutlined } from "@ant-design/icons";
 import { Info } from "@/constants/info";
 
+/**
+ * Footer component with external links
+ */
 const Footer: React.FC = () => {
     return (
         <div className="flex-shrink-0 border-t border-border-hard p-4 flex items-center justify-center">

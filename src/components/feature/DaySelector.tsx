@@ -3,15 +3,36 @@ import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import React from "react";
 
-export type DaySelectorAction = "prev" | "next"
+/**
+ * Type of day selector action
+ */
+export type DaySelectorAction = "prev" | "next";
 
+/**
+ * Props of day selector
+ */
 interface DaySelectorProps {
+    /**
+     * Current value
+     */
     value: any;
+    /**
+     * Minimum value
+     */
     min: any;
+    /**
+     * Maximum value
+     */
     max: any;
+    /**
+     * Function to be called when the value changes
+     */
     onChange: (action: DaySelectorAction) => void;
 }
 
+/**
+ * Day selector component
+ */
 const DaySelector: React.FC<DaySelectorProps> = ({ value, min, max, onChange }) => {
 
     return <>

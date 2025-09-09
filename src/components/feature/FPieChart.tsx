@@ -16,6 +16,9 @@ const COLORS: Record<WeatherCategoryType, string> = {
     Snowy: "#FFFFFF", // White
 };
 
+/**
+ * Custom tooltip component
+ */
 const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
         return (
@@ -39,6 +42,9 @@ const CustomTooltip = ({ active, payload }: any) => {
     return null;
 };
 
+/**
+ * Custom legend component
+ */
 const CustomLegend = ({ payload, legendRef }: { payload?: any; legendRef: React.RefObject<HTMLDivElement> }) => {
     return (
         <div
@@ -83,6 +89,9 @@ const CustomLegend = ({ payload, legendRef }: { payload?: any; legendRef: React.
     );
 };
 
+/**
+ * Custom label component
+ */
 const renderCustomLabel = ({ cx, cy, midAngle, outerRadius, percent }: PieLabelRenderProps, color: string) => {
     const radius = Number(outerRadius) + 18; // Move label closer by reducing gap
     const RADIAN = Math.PI / 180;
@@ -104,6 +113,9 @@ const renderCustomLabel = ({ cx, cy, midAngle, outerRadius, percent }: PieLabelR
     );
 };
 
+/**
+ * Pie chart component
+ */
 const FPieChart: React.FC<PieChartDataProps> = ({ data }) => {
     const log = logger.create("FPieChart");
 

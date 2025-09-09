@@ -3,10 +3,19 @@ import * as SliderPrimitive from "@radix-ui/react-slider";
 import { cn } from "@/lib/utils";
 
 interface AdditionalProps extends React.ComponentProps<typeof SliderPrimitive.Root>{
+    /**
+     * Track background color
+     */
     trackBackground?: string;
+    /**
+     * Track color
+     */
     trackColor?: string;
 } 
 
+/**
+ * Slider component with custom track and thumb
+ */
 function CSlider({
     className,
     defaultValue,

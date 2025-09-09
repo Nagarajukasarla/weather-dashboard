@@ -2,12 +2,27 @@ import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import React from "react";
 
 interface CardProps {
+    /**
+     * Icon to be displayed in the card
+     */
     icon: React.ReactNode;
+    /**
+     * Title of the card
+     */
     title: string;
+    /**
+     * Value to be displayed in the card
+     */
     value: string | [string, string];
+    /**
+     * Unit of the value
+     */
     unit?: string;
 }
 
+/**
+ * Card component which displays a title, icon and value
+ */
 const CCard: React.FC<CardProps> = ({ icon, title, value, unit }) => {
     return (
         <div

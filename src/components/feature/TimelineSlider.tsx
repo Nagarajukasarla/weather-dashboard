@@ -13,6 +13,9 @@ const NUM_DAYS_AFTER = 15;
 
 const minDate = dayjs().subtract(NUM_DAYS_BEFORE, "day");
 
+/**
+ * Timeline slider component
+ */
 const TimelineSlider: React.FC = () => {
     const dispatch = useDispatch();
     const { start_date, end_date } = useSelector((state: RootState) => state.time);
