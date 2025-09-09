@@ -1,6 +1,9 @@
 // Only log in development
 const isDev = import.meta.env.VITE_DEBUG;
 
+/**
+ * Get caller name from stack trace
+ */
 const getCallerName = (): string => {
     try {
         // Create an error and capture its stack trace
@@ -22,6 +25,9 @@ const getCallerName = (): string => {
     }
 };
 
+/**
+ * Logger object with methods for logging
+ */
 const logger = {
     log: (...args: any[]) => isDev && console.log(`[${getCallerName()}]`, ...args),
     warn: (...args: any[]) => isDev && console.warn(`[${getCallerName()}]`, ...args),

@@ -1,6 +1,9 @@
 import { BarChartOutlined } from "@ant-design/icons";
 import React from "react";
 
+/**
+ * Header component with title
+ */
 const Header: React.FC = () => {
     return (
         <div

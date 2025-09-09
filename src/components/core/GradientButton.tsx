@@ -1,19 +1,55 @@
 import React from "react";
 
 interface GradientButtonProps {
+    /**
+     * Button content
+     */
     children: React.ReactNode;
+    /**
+     * Function to be called when the button is clicked
+     */
     onClick?: (e: React.MouseEvent<HTMLElement>) => void;
+    /**
+     * Additional classes to be applied to the button
+     */
     className?: string;
+    /**
+     * Size of the button
+     */
     size?: "sm" | "md" | "lg";
+    /**
+     * Variant of the button
+     */
     variant?: "primary" | "secondary";
+    /**
+     * Link to be opened when the button is clicked
+     */
     href?: string;
+    /**
+     * Type of the button
+     */
     type?: "button" | "submit" | "reset";
+    /**
+     * Whether the button is disabled
+     */
     disabled?: boolean;
+    /**
+     * Icon to be displayed in the button
+     */
     icon?: React.ReactNode;
+    /**
+     * Position of the icon
+     */
     iconPosition?: "left" | "right";
+    /**
+     * Whether the button is full width
+     */
     fullWidth?: boolean;
 }
 
+/**
+ * Gradient button component
+ */
 const GradientButton: React.FC<GradientButtonProps> = ({
     children,
     onClick,

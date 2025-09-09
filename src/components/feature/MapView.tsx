@@ -1,9 +1,8 @@
 import { fetchTemperature } from "@/api/weather";
 import type APIResponse from "@/classes/APIResponse";
-import type { PopupType } from "@/components/core/Popup";
-// import Popup from "@/components/core/Popup";
 import { type RootState } from "@/state";
 import { addShape, deleteShape, updateShape } from "@/state/mapSlice";
+import type { PopupType } from "@/types/component";
 import type { MapAction } from "@/types/map";
 import { getPolygonCenter, getTemperatureColor } from "@/utils/map";
 import L, { type LatLngLiteral, type LeafletEvent } from "leaflet";
@@ -12,8 +11,8 @@ import { FeatureGroup, MapContainer, TileLayer } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import NewPopupWrapper from "../core/NewPopupWrapper";
 import Popup from "../core/NewPopup";
+import NewPopupWrapper from "../core/NewPopupWrapper";
 
 type MapViewProps = {
     onAction: (action: MapAction) => void;
@@ -46,7 +45,7 @@ const MapView = ({ onAction }: MapViewProps) => {
     const [popup, setPopup] = useState<{ visible: boolean; message: string; type: PopupType }>({
         visible: false,
         message: "",
-        type: "info",
+        type: "INFO",
     });
 
     const fetchTemperatureWithPopup = useCallback(async (center: LatLngLiteral): Promise<number | null> => {
@@ -55,7 +54,7 @@ const MapView = ({ onAction }: MapViewProps) => {
             setPopup({
                 visible: true,
                 message: response.description || "Failed to fetch temperature.",
-                type: response.type === "Success" ? "info" : "error",
+                type: response.type === "Success" ? "INFO" : "WARNING",
             });
             return null;
         }
@@ -212,7 +211,6 @@ const MapView = ({ onAction }: MapViewProps) => {
                 center={[20.5937, 78.9629]}
                 zoom={10}
                 scrollWheelZoom={true}
-                // style={{ height: "100%", width: "100%" }}
                 style={{ height: "100%", width: "100%" }}
             >
                 {/* FeatureGroup ref receives the underlying Leaflet FeatureGroup instance */}
@@ -248,19 +246,13 @@ const MapView = ({ onAction }: MapViewProps) => {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
             </MapContainer>
-            {/* <Popup
-                visible={popup.visible}
-                message={popup.message}
-                type={popup.type}
-                onClose={() => setPopup({ ...popup, visible: false })}
-            /> */}
             <NewPopupWrapper
                 isOpen={popup.visible}
                 onClose={() => setPopup({ ...popup, visible: false })}
                 children={
                     <Popup
                         title={popup.type}
-                        description={popup.message}
+                        content={popup.message}
                         onClose={() => setPopup({ ...popup, visible: false })}
                     />
                 }

@@ -41,4 +41,6 @@ export type Option = {
     label: string;
     value: string;
     object?: any;
+export type PopupType = "SUCCESS" | "ERROR" | "INFO" | "WARNING";
 }
+

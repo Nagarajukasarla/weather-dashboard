@@ -3,10 +3,18 @@ import { useMeasure } from "@/hooks/useMeasure";
 import React, { type HTMLAttributes, type ReactNode } from "react";
 
 interface CardWrapperProps extends Omit<HTMLAttributes<HTMLDivElement>, "slot"> {
+    /**
+     * Title of the card
+     */
     title?: string;
+    /**
+     * Slot content
+     */
     slot?: ReactNode;
+    /**
+     * Children content
+     */
     children: ReactNode;
-    styles?: React.CSSProperties;
 }
 
 /**

@@ -1,5 +1,8 @@
 import React from "react";
 
+/**
+ * Sparkles icon svg component
+ */
 const SparklesIcon: React.FC = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"

@@ -157,7 +157,7 @@ const NewPopupWrapper: React.FC<NewPopupWrapperProps> = ({
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
                         <motion.div
                             ref={popupRef}
-                            className={`relative w-full max-w-md max-h-[90vh] bg-white rounded-lg shadow-xl overflow-hidden ${className}`}
+                            className={`relative w-[85vw] max-w-lg max-h-[90vh] bg-white rounded-lg shadow-xl overflow-hidden ${className}`}
                             role="dialog"
                             aria-modal="true"
                             initial="hidden"

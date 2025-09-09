@@ -3,6 +3,9 @@ import Content from "@/components/layouts/Content";
 import Header from "@/components/layouts/Header";
 import Footer from "@/components/layouts/Footer";
 
+/**
+ * App layout component
+ */
 const AppLayout: React.FC = () => {
     return (
         <div className="flex flex-col min-h-screen">
