@@ -1,8 +1,5 @@
 import { Empty } from "antd";
 import React from "react";
-import noDataImageWhite from "@/assets/images/empty-box-white.png";
-import noDataImageBlack from "@/assets/images/empty-box.png";
-import useTheme from "@/hooks/useTheme";
 
 interface NoDataProps {
     /**
@@ -19,8 +16,6 @@ interface NoDataProps {
  * No data component
  */
 const NoData: React.FC<NoDataProps> = ({ title = "No Data Found", message = "No data available" }) => {
-    const { isDark } = useTheme();
-    const image = isDark ? noDataImageBlack : noDataImageWhite;
     return (
         <div style={{
             width: "100%",
@@ -45,7 +40,6 @@ const NoData: React.FC<NoDataProps> = ({ title = "No Data Found", message = "No 
                     </span>
                 }
             />
-            <img src={image} alt="No Data"/>
         </div>
     );
 }
