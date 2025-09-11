@@ -11,16 +11,16 @@ const CustomTooltip = ({ active, payload, label }: any) => {
         return (
             <div
                 className="bg-background
-                    text-background-foreground
+                    text-foreground
                     py-2
                     px-4
                     rounded-lg
-                    shadow-header
+                    shadow-box-shadow
                 "
             >
                 <p className="font-bold text-text-t1 m-0">{String(label).length === 2 ? label + ":00" : label}</p> {/* Strictly depends on the data format */}
                 <p className="text-text-t2 m-0">
-                    Value: <span className="text-background-tooltipTextValue">{payload[0].value}</span>
+                    Value: <span className="font-semibold text-foreground-link">{payload[0].value}</span>
                 </p>
             </div>
         );

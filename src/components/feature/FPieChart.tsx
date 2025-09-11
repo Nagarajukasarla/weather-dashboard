@@ -25,16 +25,16 @@ const CustomTooltip = ({ active, payload }: any) => {
             <div
                 className="
                     bg-background
-                    text-background-foreground
+                    text-foreground
                     py-2
                     px-4
                     rounded-lg
-                    shadow-header
+                    shadow-box-shadow
                 "
             >
                 <p className="font-bold text-text-t1 m-0"> {payload[0].name}</p>
                 <p className="text-text-t2">
-                    Value: <span className="text-background-tooltipTextValue">{payload[0].value}%</span>
+                    Value: <span className="text-foreground-link">{payload[0].value}%</span>
                 </p>
             </div>
         );

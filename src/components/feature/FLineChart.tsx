@@ -11,22 +11,22 @@ const CustomTooltip = ({ active, payload, label }: any) => {
             <div
                 className="
                     bg-background
-                    text-background-foreground
+                    text-foreground
                     py-2
                     px-4
                     rounded-lg
-                    shadow-header
+                    shadow-box-shadow
                 "
             >
                 <p className="font-bold text-text-t1 m-0">{String(label).length === 2 ? label + ":00" : label}</p>
                 <p className="text-text-t2 m-0">
-                    Temperature: <span className="text-background-tooltipTextValue">{payload[0].value}</span>
+                    Temperature: <span className="text-foreground-link">{payload[0].value}</span>
                 </p>
                 <p className="text-text-t2 m-0">
-                    Feels like: <span className="text-background-tooltipTextValue">{payload[1].value}</span>
+                    Feels like: <span className="text-foreground-link">{payload[1].value}</span>
                 </p>
                 <p className="text-text-t2 m-0">
-                    Humidity: <span className="text-background-tooltipTextValue">{payload[2].value}</span>
+                    Humidity: <span className="text-foreground-link">{payload[2].value}</span>
                 </p>
             </div>
         );

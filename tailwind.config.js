@@ -2,48 +2,48 @@
 module.exports = {
     darkMode: "class",
     content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
+    plugins: ["tailwindcss-animate"],
     theme: {
         extend: {
             colors: {
-                "header-icon": "#a855f7",
+                primary: "var(--primary)",
                 background: {
                     DEFAULT: "hsl(var(--background))",
-                    foreground: "hsl(var(--foreground))",
-
+                    
                     /** Card and other surface colors except background(root) */
-                    surface: "hsl(215, 27.91%, 16.86%)",
+                    surface: "hsl(var(--surface))",
 
-                    // onSurface: "#d1d5db",
+                    /* Controls (Sliders, Toggles, Inputs, Checkboxes, Radios) */
+                    "control": "var(--control-bg)",
+                    "control-active": "var(--control-active)",
+                    "control-muted": "var(--control-muted)",
 
-                    tooltipTextValue: "#93c5fd",
-                    "toggle-muted": "#555555",
-                    "toggle-active": "#A78BFA",
+                    /* Select */
+                    select: "var(--select-bg)",
                 },
                 foreground: {
                     DEFAULT: "hsl(var(--foreground))",
-                    surface: "#d1d5db",
                     danger: "#ef4444",
                     success: "#10b981",
+                    surface: "var(--on-surface)",
+
+                    /* Controls (Sliders, Toggles, Inputs, Checkboxes, Radios) */
+                    "control": "var(--control-fg)",
+                    
+                    /* Select */
+                    select: "var(--select-fg)",
+
+                    /* Link */
+                    link: "var(--link)",
                 },
-                // primary: {
-                //     DEFAULT: "hsl(var(--primary))",
-                //     foreground: "hsl(var(--primary-foreground))",
-                // },
-                // secondary: {
-                //     DEFAULT: "hsl(var(--secondary))",
-                //     foreground: "hsl(var(--secondary-foreground))",
-                // },
                 border: {
                     normal: "var(--border-normal)",
                     hard: "var(--border-hard)",
                 },
-                ring: "hsl(var(--ring))",
-
-                /** Tooltip text color  <== This is can secondary categorized into secondary surface */
-                "tooltip-text": "hsl(var(--tooltip-text))",
+                ring: "var(--ring-r)",
             },
             boxShadow: {
-                header: "0 1px 1px rgba(0, 0, 0, 0.15)",
+                "box-shadow": "var(--box-shadow)",
             },
             backdropBlur: {
                 sm: "4px",
@@ -63,12 +63,13 @@ module.exports = {
             width: {
                 "btn-width-sm": "var(--btn-width-sm)",
                 "btn-width-md": "var(--btn-width-md)",
+                "icon-btn-width": "var(--icon-btn-width)",
             },
-            height: { 
-                "btn-height-sm": "var(--btn-height-sm)" ,
-                "btn-height-md": "var(--btn-height-md)" 
+            height: {
+                "btn-height-sm": "var(--btn-height-sm)",
+                "btn-height-md": "var(--btn-height-md)",
             },
         },
     },
-    plugins: [],
+    plugins: [require("tailwindcss-animate")],
 };

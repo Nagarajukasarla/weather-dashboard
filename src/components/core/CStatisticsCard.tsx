@@ -1,29 +1,11 @@
 import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import React from "react";
-
-interface CardProps {
-    /**
-     * Icon to be displayed in the card
-     */
-    icon: React.ReactNode;
-    /**
-     * Title of the card
-     */
-    title: string;
-    /**
-     * Value to be displayed in the card
-     */
-    value: string | [string, string];
-    /**
-     * Unit of the value
-     */
-    unit?: string;
-}
+import type { StatisticsCardProps } from "@/types/component";
 
 /**
  * Card component which displays a title, icon and value
  */
-const CCard: React.FC<CardProps> = ({ icon, title, value, unit }) => {
+const StatisticsCard: React.FC<StatisticsCardProps> = ({ icon, title, value, unit }) => {
     return (
         <div
             className="
@@ -34,6 +16,7 @@ const CCard: React.FC<CardProps> = ({ icon, title, value, unit }) => {
                 flex-1
                 max-w-[170px]
                 rounded-lg
+                shadow-box-shadow
             "
         >
             <div className="flex flex-col overflow-hidden">
@@ -81,4 +64,4 @@ const CCard: React.FC<CardProps> = ({ icon, title, value, unit }) => {
     );
 };
 
-export default CCard;
+export default StatisticsCard;

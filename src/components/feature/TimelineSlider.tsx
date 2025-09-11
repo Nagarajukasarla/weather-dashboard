@@ -48,7 +48,7 @@ const TimelineSlider: React.FC = () => {
             <div className="flex justify-between items-center">
                 <div className="flex items-center gap-2 sm:gap-6 text-foreground-surface font-semibold">
                     <div className="">
-                        <CalendarOutlined className="text-header-icon mr-2" />
+                        <CalendarOutlined className="text-primary mr-2" />
                         <span className="text-heading-h3 block hidden md:inline">Time Period</span>
                     </div>
                     <span className="text-text-t2">
@@ -68,8 +68,6 @@ const TimelineSlider: React.FC = () => {
                         max={max}
                         step={1}
                         className="mb-4"
-                        trackBackground="#555"
-                        trackColor="#a78bfa"
                     />
                 ) : (
                     <CSlider
@@ -79,8 +77,7 @@ const TimelineSlider: React.FC = () => {
                         max={max}
                         step={1}
                         className="mb-4"
-                        trackBackground="#555"
-                        trackColor="#555"
+                        trackColor="var(--control-muted)"
                     />
                 )}
             </div>

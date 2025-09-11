@@ -7,58 +7,148 @@
 
 @layer base {
     :root {
-        /* Font size */
-        /* --heading-h1: 1.3rem; */
-        --heading-h1: clamp(1.3rem, calc(1vw + 1rem), 1.8rem);
+        /* Primary color */
+        --primary: #a855f7;
 
-        --background: 0 0% 100%; /* White (#FFFFFF) */
-        --foreground: 222.2 47.4% 11.2%; /* Very Dark Blue-Gray (almost black, ~#0B1324) */
-
-        --primary: 220 90% 56%; /* Bright Blue (~#2979FF, similar to Tailwind's blue-600) */
-        --primary-foreground: 0 0% 100%; /* White (#FFFFFF) */
-
-        --secondary: 210 40% 96%; /* Very Light Blue-Gray (~#F1F5F9, Tailwind slate-100) */
-        --secondary-foreground: 222.2 47.4% 11.2%; /* Very Dark Blue-Gray (~#0B1324 again) */
-
-        --border-normal: rgba(255, 255, 255, 0.1); /*Light Gray-Blue (~#E2E8F0, Tailwind slate-200) */
-        --border-hard: rgba(255, 255, 255, 0.2);
-        --ring: 215 20.2% 65.1%; /* Focus ring, Muted Blue-Gray (~#94A3B8, Tailwind slate-400) */
-    }
-
-    .dark {
-        /* Font size */
-        /* Headings & titles */
+        /* Headings & titles sizes */
         --heading-h1: clamp(1.3rem, calc(1vw + 1rem), 1.8rem);
         --heading-h2: clamp(1rem, calc(0.5vw + 0.8rem), 1.2rem);
 
-        /* Normal text */
+        /* Normal text sizes */
         --text-t1: clamp(1rem, calc(0.5vw + 0.8rem), 1rem);
         --text-t2: clamp(0.5rem, calc(0.5vw + 0.8rem), 0.9rem);
         --text-t3: clamp(0.45rem, calc(0.5vw + 0.75rem), 0.8rem);
 
-        --btn-width-sm: clamp(80px, 15vw, 200px);
-        --btn-height-sm: clamp(2rem, 5vh, 3rem);
+        /* Icon button sizes */
+        --icon-btn-width: clamp(40px, 10vw, 80px);
+        --icon-btn-height: clamp(2rem, 5vh, 3rem);
 
-        --btn-width-md: clamp(140px, 15vw, 220px);
+        /* Button sizes */
+        /* Small */
+        --btn-width-sm: clamp(80px, 10vw, 120px);
+        --btn-height-sm: clamp(2rem, 5vh, 3rem);
+        /* Medium */
+        --btn-width-md: clamp(140px, 15vw, 160px);
         --btn-height-md: clamp(2.2rem, 5vh, 4.5rem);
+
+        /* --primary: 220 90% 56%; */ /* Bright Blue (~#2979FF, similar to Tailwind's blue-600) */
+        --primary-foreground: 0 0% 100%; /* White (#FFFFFF) */
+
+        /* Unused */
+        --secondary: 210 40% 96%; /* Very Light Blue-Gray (~#F1F5F9, Tailwind slate-100) */
+        --secondary-foreground: 222.2 47.4% 11.2%; /* Very Dark Blue-Gray (~#0B1324 again) */
+
+        /* Got from dark unused */
+        --secondary: 217.2 32.6% 17.5%; /* Dark Grayish Blue (~#1E293B, Tailwind slate-800) */
+        --secondary-foreground: 210 40% 98%; /* Almost White (~#F8FAFC) */
+        --primary-foreground: 0 0% 100%; /* White (#FFFFFF) */
+    }
+
+    .light {
+        /** Main background */
+        --main-background: (0 0% 100%); /* pure white */
+
+        --background: 0 0% 100%; /* Pure White (#FFFFFF) */
+        --foreground: 222.2 47.4% 11.2%; /* Very Dark Blue-Gray (same as dark background) */
+
+        /* Backgrounds */
+        --surface: 0, 0%, 100%; /* pure white (#ffffff) */
+        --on-surface: #374151; /* slate-700 for readable dark text */
+
+        /* Borders */
+        --border-normal: rgba(0, 0, 0, 0.1); /* soft gray */
+        --border-hard: rgba(0, 0, 0, 0.2); /* stronger gray */
+
+        /* Focus ring */
+        --ring-r: #c1c1c1; /* slate-600 ~ #475569 */
+
+        /* Shadows */
+        --box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+
+        /* Card Wrapper */
+        --cardWrapper-title: #374151; /* slate-700 */
+        --cardWrapper-noData-title: #6b7280; /* slate-500 */
+        --cardWrapper-noData-description: #9ca3af; /* slate-400 */
+
+        /* Toggle button */
+        --toggle-btn-active: var(--primary);
+        --toggle-btn-muted: #b0b4bc;
+
+        --toggle-btn-muted-dot: #eeeeee;
+        --toggle-btn-active-dot: #eeeeee;
+
+        /* Buttons */
+        --button-bg: var(--primary); /* default button background */
+        --button-fg: var(--on-primary); /* text/icon inside button */
+        --button-hover: hsl(220, 90%, 50%); /* hover */
+        --button-disabled-bg: #e5e7eb; /* muted bg */
+        --button-disabled-fg: #9ca3af; /* muted text */
+
+        /* Controls (Sliders, Toggles, Inputs, Checkboxes, Radios) */
+        --control-bg: #e5e7eb; /* track / background of controls */
+        --control-fg: #eeeeee; /* knob / thumb / dot */
+        --control-active: var(--primary); /* active track/knob */
+        --control-muted: #b0b4bc; /* inactive track/knob */
+        --control-border: #b0b4bc; /* checkbox/radio border */
+
+        --select-bg: #e5e7eb;
+        --select-fg: #374151;
+
+        /* Links */
+        --link: #2563eb; /* Tailwind blue-600 */
+        
+        /*--link-hover: #1d4ed8; /* Tailwind blue-700 */
+        /*--link-visited: #7c3aed; /* Purple-ish for visited links */
+        /*--link-muted: #6b7280; Gray-500 */
+    }
+
+    .dark {
+        /** Main background */
+        --main-background: 222.2 47.4% 11.2%;
+
+        /* Button */
+        --btn-hover: hsl(var(--background));
+        /* Buttons */
+        --button-bg: var(--primary); /* default button background */
+        --button-fg: var(--on-primary); /* text/icon inside button */
+        --button-hover: hsl(220, 90%, 50%); /* hover */
+        --button-disabled-bg: #e5e7eb; /* muted bg */
+        --button-disabled-fg: #9ca3af; /* muted text */
 
         --background: 222.2 47.4% 11.2%; /* Very Dark Blue-Gray (~#0B1324, like Tailwind slate-950) */
         --foreground: 210 40% 98%; /* Almost White (~#F8FAFC, Tailwind slate-50) */
-        --primary: 210 100% 45%; /* Strong Blue (~#0D6EFD, Bootstrap primary blue) */
-        --primary-foreground: 0 0% 100%; /* White (#FFFFFF) */
 
-        --secondary: 217.2 32.6% 17.5%; /* Dark Grayish Blue (~#1E293B, Tailwind slate-800) */
-        --secondary-foreground: 210 40% 98%; /* Almost White (~#F8FAFC) */
-        --border: rgba(255, 255, 255, 0.1); /*Same as secondary (~#1E293B) */
+        /* Focus ring */
+        --ring-r: #808080; /* slate-600 ~ #475569 */
+
+        /* For cards and other surfaces */
+        --surface: 215, 27.91%, 16.86%;
+        --on-surface: #d1d5db;
+
+        --border-normal: rgba(255, 255, 255, 0.1); /*Light Gray-Blue (~#E2E8F0, Tailwind slate-200) */
+        --border-hard: rgba(255, 255, 255, 0.2);
         --ring: 215 20.2% 65.1%; /* Focus ring, Medium Gray-Blue (~#94A3B8, Tailwind slate-400) */
+        --box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
 
         /* Card Wrapper */
         --cardWrapper-title: #d1d5db;
         --cardWrapper-noData-title: #e5e7eb;
         --cardWrapper-noData-description: #9ca3af;
 
-        /* Charts Tooltip */
-        --tooltip-text-value: #93c5fd;
+        --control-bg: #555555;
+        --control-fg: #ffffff;
+        --control-active: var(--primary);
+        --control-muted: #555555;
+
+        --select-bg: #e8e8e8;
+        --select-fg: #374151;
+
+        /* Links */
+        --link: #60a5fa; /* Tailwind blue-400 */
+
+        /*--link-hover: #93c5fd; /* Tailwind blue-300 */
+        /*--link-visited: #c084fc; /* Purple-400 */
+        /*--link-muted: #9ca3af; /* Gray-400 */
     }
 }
 
@@ -68,23 +158,9 @@ body,
     margin: 0;
     padding: 0;
     height: 100vh;
-    background-color: #111827;
+    background-color: hsl(var(--main-background));
     width: 100%;
     box-sizing: border-box;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
         "Open Sans", "Helvetica Neue", sans-serif;
 }
-
-/* Disable zoom and shadow effects on AntD slider handle
-.ant-slider .ant-slider-handle {
-    transform: none !important;
-    transition: none !important;
-    box-shadow: none !important;
-}
-
-.ant-slider .ant-slider-handle:hover,
-.ant-slider .ant-slider-handle:active,
-.ant-slider .ant-slider-handle:focus {
-    transform: none !important;
-    box-shadow: none !important;
-} */

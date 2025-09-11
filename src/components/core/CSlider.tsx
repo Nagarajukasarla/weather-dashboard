@@ -2,7 +2,7 @@ import * as React from "react";
 import * as SliderPrimitive from "@radix-ui/react-slider";
 import { cn } from "@/lib/utils";
 
-interface AdditionalProps extends React.ComponentProps<typeof SliderPrimitive.Root>{
+interface AdditionalProps extends React.ComponentProps<typeof SliderPrimitive.Root> {
     /**
      * Track background color
      */
@@ -11,7 +11,7 @@ interface AdditionalProps extends React.ComponentProps<typeof SliderPrimitive.Ro
      * Track color
      */
     trackColor?: string;
-} 
+}
 
 /**
  * Slider component with custom track and thumb
@@ -22,11 +22,10 @@ function CSlider({
     value,
     min = 0,
     max = 100,
-    trackBackground = "#555",
-    trackColor = "#a78bfa",
+    trackBackground,
+    trackColor,
     ...props
 }: AdditionalProps) {
-
     const _values = React.useMemo(
         () => (Array.isArray(value) ? value : Array.isArray(defaultValue) ? defaultValue : [min, max]),
         [value, defaultValue, min, max]
@@ -49,28 +48,28 @@ function CSlider({
             <SliderPrimitive.Track
                 className={cn(
                     "relative grow overflow-hidden rounded-full",
-                    {
-                        "bg-[#555]": trackBackground === "#555",
-                    },
                     "data-[orientation=horizontal]:h-3 data-[orientation=horizontal]:w-full",
                     "data-[orientation=vertical]:h-3 data-[orientation=vertical]:w-3"
                 )}
+                style={{
+                    backgroundColor: trackBackground || "var(--control-muted)",
+                }}
             >
                 <SliderPrimitive.Range
                     className={cn(
                         "absolute",
-                        {
-                            "bg-[#a78bfa]": trackColor === "#a78bfa",
-                        },
                         "data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full"
                     )}
+                    style={{
+                        backgroundColor: trackColor || "var(--control-active)",
+                    }}
                 />
             </SliderPrimitive.Track>
             {Array.from({ length: _values.length }, (_, index) => (
                 <SliderPrimitive.Thumb
                     key={index}
                     className="
-                        border-primary bg-[#fff] 
+                        border border-background-slider-thumb bg-foreground-control 
                         ring-ring/50 block size-5
                         shrink-0 rounded-full border
                         shadow-sm transition-[color,box-shadow] 

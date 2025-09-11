@@ -1,6 +1,6 @@
 import { fetchWeather } from "@/api/weather";
 import type APIResponse from "@/classes/APIResponse";
-import DashboardCard from "@/components/core/CCard";
+import StatisticsCard from "@/components/core/CStatisticsCard";
 import Popup from "@/components/core/NewPopup";
 import NewPopupWrapper from "@/components/core/NewPopupWrapper";
 import Spinner from "@/components/core/Spinner";
@@ -296,7 +296,7 @@ const Content: React.FC = () => {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-5 w-full mt-6">
                 <div className="flex justify-start">
-                    <DashboardCard
+                    <StatisticsCard
                         icon={<BarChartOutlined />}
                         title="Temperature"
                         value={[weatherData?.maxTemperature ?? "0", weatherData?.minTemperature ?? "0"]}
@@ -304,7 +304,7 @@ const Content: React.FC = () => {
                     />
                 </div>
                 <div className="flex justify-end md:justify-center">
-                    <DashboardCard
+                    <StatisticsCard
                         icon={<DotChartOutlined />}
                         title="Humidity"
                         value={[weatherData?.maxHumidity ?? "0", weatherData?.minHumidity ?? "0"]}
@@ -312,7 +312,7 @@ const Content: React.FC = () => {
                     />
                 </div>
                 <div className="flex justify-start md:justify-center">
-                    <DashboardCard
+                    <StatisticsCard
                         icon={<StockOutlined />}
                         title="Wind Speed"
                         value={[weatherData?.maxWindSpeed ?? "0", weatherData?.minWindSpeed ?? "0"]}
@@ -320,7 +320,7 @@ const Content: React.FC = () => {
                     />
                 </div>
                 <div className="flex justify-end">
-                    <DashboardCard
+                    <StatisticsCard
                         icon={<SlidersOutlined />}
                         title="Precipitation"
                         value={[weatherData?.maxPrecipitation ?? "0", weatherData?.minPrecipitation ?? "0"]}

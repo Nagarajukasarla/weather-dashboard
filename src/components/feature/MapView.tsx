@@ -1,5 +1,7 @@
 import { fetchTemperature } from "@/api/weather";
 import type APIResponse from "@/classes/APIResponse";
+import Popup from "@/components/core/NewPopup";
+import NewPopupWrapper from "@/components/core/NewPopupWrapper";
 import { type RootState } from "@/state";
 import { addShape, deleteShape, updateShape } from "@/state/mapSlice";
 import type { PopupType } from "@/types/component";
@@ -11,8 +13,6 @@ import { FeatureGroup, MapContainer, TileLayer } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import Popup from "../core/NewPopup";
-import NewPopupWrapper from "../core/NewPopupWrapper";
 
 type MapViewProps = {
     onAction: (action: MapAction) => void;

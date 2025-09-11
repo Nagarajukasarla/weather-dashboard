@@ -44,7 +44,7 @@ const CustomTooltip = ({ slice }: { slice: any }) => {
     logger.debug("Tooltip points:", points);
 
     return (
-        <div className="bg-background text-background-foreground py-2 px-4 rounded-lg shadow-md flex flex-col">
+        <div className="bg-background text-foreground py-2 px-4 rounded-lg shadow-md flex flex-col">
             {points.length > 0 && (
                 <>
                     <p className="font-bold text-text-t1 m-0">
@@ -56,7 +56,7 @@ const CustomTooltip = ({ slice }: { slice: any }) => {
                     {points.map((point: any) => (
                         <p key={`${point.seriesId}-${point.id}`} className="text-text-t2 m-0 flex gap-2">
                             {String(point.seriesId)[0].toUpperCase() + String(point.seriesId).slice(1)}:{" "}
-                            <span className="text-background-tooltipTextValue">{point.data.yFormatted}</span>
+                            <span className="text-foreground-link">{point.data.yFormatted}</span>
                         </p>
                     ))}
                 </>
