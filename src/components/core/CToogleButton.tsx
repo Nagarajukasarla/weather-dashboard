@@ -45,7 +45,7 @@ const CToogleButton: React.FC<CToogleButtonProps> = ({ value, setValue, labels, 
                     <span
                         className={`
                             absolute cursor-pointer
-                            ${value ? " bg-background-toggle-active" : " bg-background-toggle-muted"}
+                            ${value ? " bg-background-control-active" : " bg-background-control-muted"}
                             rounded-[24px]
                             top-0 left-0 right-0 bottom-0
                         `}
@@ -53,7 +53,7 @@ const CToogleButton: React.FC<CToogleButtonProps> = ({ value, setValue, labels, 
                     >
                         <span
                             className={`
-                                absolute ${value ? " left-[26px] " : " left-[4px] "} bg-background-foreground
+                                absolute ${value ? " left-[26px] bg-foreground-control" : " left-[4px] bg-foreground-control "} 
                                 cursor-pointer
                                 rounded-[50%]
                                 top-[0.2rem]

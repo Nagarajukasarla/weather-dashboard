@@ -33,7 +33,7 @@ export const CardWrapper: React.FC<CardWrapperProps> = ({ title, children, slot,
                 backdrop-blur-sm
                 border border-border-normal
                 rounded-lg
-                shadow-header
+                shadow-box-shadow
                 p-wrapper
                 flex flex-col
                 ${className}

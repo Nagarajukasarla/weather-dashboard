@@ -98,21 +98,21 @@ const GradientButton: React.FC<GradientButtonProps> = ({
             ></span>
 
             {/* Inner background - more transparent */}
-            <span className="absolute inset-[1.5px] bg-[#0f1624]/95 rounded-full"></span>
+            <span className="absolute inset-[1.5px] bg-background-tertiary-button rounded-full"></span>
 
             {/* Glow effect - subtle by default, more on hover */}
             <span
-                className={`absolute inset-0 rounded-full opacity-10 hover:opacity-40 transition-opacity duration-500 bg-gradient-to-r blur-lg ${variantClasses[variant]}`}
+                className={`absolute inset-0 rounded-full opacity-10 hover:opacity-40 transition-opacity duration-600 bg-gradient-to-r blur-lg ${variantClasses[variant]}`}
             ></span>
 
             {/* Additional subtle pulsing glow */}
             <span
-                className={`absolute inset-0 rounded-full opacity-10 hover:opacity-25 transition-opacity duration-500 animate-pulse bg-gradient-to-r blur-xl ${variantClasses[variant]}`}
+                className={`absolute inset-0 rounded-full opacity-10 hover:opacity-25 transition-opacity duration-600 animate-pulse bg-gradient-to-r blur-xl ${variantClasses[variant]}`}
             ></span>
 
             {/* Content */}
             <span
-                className={`relative flex items-center justify-center gap-2 z-10 text-white font-medium tracking-wider`}
+                className={`relative flex items-center justify-center gap-2 z-10 text-foreground-tertiary-button font-semibold tracking-wider`}
             >
                 {iconPosition === "left" && icon}
                 {children}

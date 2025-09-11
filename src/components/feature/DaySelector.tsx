@@ -1,5 +1,4 @@
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import CButton from "@/components/core/Button";
 import React from "react";
 
 /**
@@ -35,50 +34,44 @@ interface DaySelectorProps {
 const DaySelector: React.FC<DaySelectorProps> = ({ value, min, max, onChange }) => {
     return (
         <>
-            <div
-                style={{
-                    width: "160px",
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                }}
-            >
-                <Button
-                    type="primary"
-                    style={{
-                        width: "30px",
-                        height: "30px",
-                        color: "#FFFFFF",
-                    }}
+            <div className="w-[160px] flex items-center justify-between">
+                <CButton
                     onClick={() => onChange("prev")}
                     disabled={value === min}
+                    className="w-[2rem] h-[2rem] bg-background-button text-foreground-on-surface
+                            flex items-center justify-center
+                            hover:bg-background-button-hover
+                            disabled:bg-background-button-disabled disabled:text-foreground-button-disabled"
                 >
-                    <LeftOutlined />
-                </Button>
-                <div>
-                    <p
-                        style={{
-                            fontSize: "14px",
-                            fontWeight: "600",
-                            color: "#FFFFFF",
-                        }}
-                    >
-                        {String(value)}
-                    </p>
+                    <svg viewBox="0 0 1024 1024" className="" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M768 903.232l-50.432 56.768L256 512l461.568-448 50.432 56.768L364.928 512z"
+                            fill="currentColor"
+                            stroke="currentColor"
+                            stroke-width="50"
+                        ></path>
+                    </svg>
+                </CButton>
+                <div className="flex items-center">
+                    <p className="text-text-t2 font-semibold text-foreground-surface">{String(value)}</p>
                 </div>
-                <Button
-                    type="primary"
-                    style={{
-                        width: "30px",
-                        height: "30px",
-                        color: "#FFFFFF",
-                    }}
+                <CButton
                     onClick={() => onChange("next")}
                     disabled={value === max}
+                    className="w-[2rem] h-[2rem] bg-background-button text-foreground-on-surface
+                            flex items-center justify-center
+                            hover:bg-background-button-hover
+                            disabled:bg-background-button-disabled disabled:text-foreground-button-disabled"
                 >
-                    <RightOutlined />
-                </Button>
+                    <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z"
+                            fill="currentColor"
+                            stroke="currentColor"
+                            stroke-width="50"
+                        ></path>
+                    </svg>
+                </CButton>
             </div>
         </>
     );
