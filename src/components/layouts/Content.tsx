@@ -34,7 +34,6 @@ const CHART_VIEW_OPTIONS: Option[] = [
     { key: "2", label: "Daily", value: "daily" },
 ];
 
-
 const Content: React.FC = () => {
     const { start_date, end_date } = useSelector((state: RootState) => state.time);
     const shapes = useSelector((state: RootState) => state.map.shapes);
@@ -328,13 +327,13 @@ const Content: React.FC = () => {
                     />
                 </div>
             </div>
-            <div className="flex flex-wrap gap-5 justify-between mt-6 p-0">
+            <div className="flex flex-wrap justify-between mt-6 p-0">
                 <CardWrapper title="Weather Condition" className="w-full md:flex-[0_0_calc(33%-10px)] h-[470px]">
                     <DashboardPieChart data={memoizedPieChartData} />
                 </CardWrapper>
                 <CardWrapper
                     title={`${barChartView.value === "hourly" ? "Hourly" : "Daily Average"} Temparature`}
-                    className="w-full md:flex-[0_0_calc(67%-10px)] h-[470px]"
+                    className="w-full mt-5 md:mt-0 md:flex-[0_0_calc(67%-10px)] h-[470px]"
                     slot={
                         <div
                             style={{
@@ -355,6 +354,7 @@ const Content: React.FC = () => {
                                     min={start_date}
                                     max={end_date}
                                     onChange={action => handleChangeDate(action, "bar")}
+                                    className="sm:ml-5"
                                 />
                             )}
                         </div>
@@ -387,6 +387,7 @@ const Content: React.FC = () => {
                                     min={start_date}
                                     max={end_date}
                                     onChange={action => handleChangeDate(action, "line")}
+                                    className="sm:ml-5"
                                 />
                             )}
                         </div>

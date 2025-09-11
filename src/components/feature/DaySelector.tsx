@@ -1,4 +1,5 @@
 import CButton from "@/components/core/Button";
+import { cn } from "@/lib/utils";
 import React from "react";
 
 /**
@@ -26,15 +27,19 @@ interface DaySelectorProps {
      * Function to be called when the value changes
      */
     onChange: (action: DaySelectorAction) => void;
+    /**
+     * Optional styles
+     */
+    className?: string;
 }
 
 /**
  * Day selector component
  */
-const DaySelector: React.FC<DaySelectorProps> = ({ value, min, max, onChange }) => {
+const DaySelector: React.FC<DaySelectorProps> = ({ value, min, max, onChange, className }) => {
     return (
         <>
-            <div className="w-[160px] flex items-center justify-between">
+            <div className={cn("w-[160px] flex items-center justify-between", className)}>
                 <CButton
                     onClick={() => onChange("prev")}
                     disabled={value === min}

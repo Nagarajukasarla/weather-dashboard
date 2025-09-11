@@ -105,7 +105,7 @@ export const DualAxisLineChart: React.FC<Props> = ({ data, height }) => {
 
     log.debug("Data: " + JSON.stringify(data));
 
-    return data[0].data && data[0].data.length > 0 ? (
+    return (data[0].data && data[0].data.length > 0) ||true ? (
         <div className="relative h-full" style={{ height }}>
             {/* Right axis chart (humidity) */}
             <ResponsiveLine
@@ -227,8 +227,8 @@ export const DualAxisLineChart: React.FC<Props> = ({ data, height }) => {
                         {
                             anchor: "bottom",
                             direction: "row",
-                            translateY: 70,
-                            itemWidth: 120,
+                            translateY: 72.5,
+                            itemWidth: 100,
                             itemHeight: 20,
                             symbolSize: 12,
                             symbolShape: "circle",
