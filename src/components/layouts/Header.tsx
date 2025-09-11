@@ -1,13 +1,11 @@
 import { BarChartOutlined } from "@ant-design/icons";
 import React from "react";
-import CButton from "@/components/core/Button";
-import useTheme from "@/hooks/useTheme";
+import ThemeToggleButton from "../feature/ThemeToggleButton";
 
 /**
  * Header component with title
  */
 const Header: React.FC = () => {
-    const { isDark, toggleMode } = useTheme();
     return (
         <div
             className="
@@ -26,7 +24,7 @@ const Header: React.FC = () => {
                 <h2 className="text-foreground text-heading-h1 font-semibold">Analytics Dashboard</h2>
             </div>
 
-            <CButton className="text-foreground" onClick={toggleMode}>{isDark ? "Light" : "Dark"}</CButton>
+            <ThemeToggleButton/>
         </div>
     );
 };

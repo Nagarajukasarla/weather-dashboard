@@ -12,7 +12,13 @@ const CButton: React.FC<CButtonProps> = ({ children, className, onClick, ...prop
     return (
         <button
             className={cn(
-                "bg-background text-foreground border border-border-hard rounded-lg h-btn-height-sm w-btn-width-sm hover:bg-background-hover focus:ring-2 focus:ring-ring text-text-t2",
+                "bg-background text-foreground border border-border-hard",
+                "rounded-lg",
+                "h-[max-content] w-[max-content]",
+                "py-2 px-2",
+                "hover:bg-background-hover",
+                "text-text-t2",
+                "disabled:opacity-50 disabled:cursor-not-allowed",
                 className
             )}
             onClick={onClick}

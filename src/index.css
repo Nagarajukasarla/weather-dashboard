@@ -9,6 +9,8 @@
     :root {
         /* Primary color */
         --primary: #a855f7;
+        --on-primary: #ffffff;
+        --on-primary-hover: #9333ea;
 
         /* Headings & titles sizes */
         --heading-h1: clamp(1.3rem, calc(1vw + 1rem), 1.8rem);
@@ -77,12 +79,16 @@
         --toggle-btn-muted-dot: #eeeeee;
         --toggle-btn-active-dot: #eeeeee;
 
-        /* Buttons */
+        /* Button */
         --button-bg: var(--primary); /* default button background */
         --button-fg: var(--on-primary); /* text/icon inside button */
-        --button-hover: hsl(220, 90%, 50%); /* hover */
-        --button-disabled-bg: #e5e7eb; /* muted bg */
+        --button-hover: var(--on-primary-hover); /* hover */
+
+        --button-disabled-bg: transparent; /* muted bg */
         --button-disabled-fg: #9ca3af; /* muted text */
+
+        /* Transparent button | Secondary button */
+        --secondary-button-hover: rgba(0, 0, 0, 0.06); /* hover */
 
         /* Controls (Sliders, Toggles, Inputs, Checkboxes, Radios) */
         --control-bg: #e5e7eb; /* track / background of controls */
@@ -100,6 +106,9 @@
         /*--link-hover: #1d4ed8; /* Tailwind blue-700 */
         /*--link-visited: #7c3aed; /* Purple-ish for visited links */
         /*--link-muted: #6b7280; Gray-500 */
+
+        --tertiary-button-bg: #ffffff;  
+        --tertiary-button-fg: #283354; 
     }
 
     .dark {
@@ -111,9 +120,13 @@
         /* Buttons */
         --button-bg: var(--primary); /* default button background */
         --button-fg: var(--on-primary); /* text/icon inside button */
-        --button-hover: hsl(220, 90%, 50%); /* hover */
-        --button-disabled-bg: #e5e7eb; /* muted bg */
+        --button-hover: var(--on-primary-hover);
+
+        --button-disabled-bg: transparent; /* muted bg */
         --button-disabled-fg: #9ca3af; /* muted text */
+
+        /* Transparent or Secondary button */
+        --secondary-button-hover: rgba(255, 255, 255, 0.06); /* hover */
 
         --background: 222.2 47.4% 11.2%; /* Very Dark Blue-Gray (~#0B1324, like Tailwind slate-950) */
         --foreground: 210 40% 98%; /* Almost White (~#F8FAFC, Tailwind slate-50) */
@@ -149,6 +162,9 @@
         /*--link-hover: #93c5fd; /* Tailwind blue-300 */
         /*--link-visited: #c084fc; /* Purple-400 */
         /*--link-muted: #9ca3af; /* Gray-400 */
+
+        --tertiary-button-bg: #0f1624;       /* dark navy inner background */
+        --tertiary-button-fg: #ffffff;     /* white text */
     }
 }
 

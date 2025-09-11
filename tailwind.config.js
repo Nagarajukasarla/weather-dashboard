@@ -9,17 +9,28 @@ module.exports = {
                 primary: "var(--primary)",
                 background: {
                     DEFAULT: "hsl(var(--background))",
-                    
+
                     /** Card and other surface colors except background(root) */
                     surface: "hsl(var(--surface))",
 
                     /* Controls (Sliders, Toggles, Inputs, Checkboxes, Radios) */
-                    "control": "var(--control-bg)",
+                    control: "var(--control-bg)",
                     "control-active": "var(--control-active)",
                     "control-muted": "var(--control-muted)",
 
                     /* Select */
                     select: "var(--select-bg)",
+
+                    /* Button */
+                    button: "var(--button-bg)",
+                    "button-disabled": "var(--button-disabled-bg)",
+                    "button-hover": "var(--button-hover)",
+
+                    /* Secondary button | Transparent button */
+                    "secondary-button-hover": "var(--secondary-button-hover)",
+
+                    /* Tertiary button | Gradient buttons */
+                    "tertiary-button": "var(--tertiary-button-bg)",
                 },
                 foreground: {
                     DEFAULT: "hsl(var(--foreground))",
@@ -27,14 +38,24 @@ module.exports = {
                     success: "#10b981",
                     surface: "var(--on-surface)",
 
+                    /** Common for buttons etc */
+                    "on-surface": "var(--on-primary)",
+
                     /* Controls (Sliders, Toggles, Inputs, Checkboxes, Radios) */
-                    "control": "var(--control-fg)",
-                    
+                    control: "var(--control-fg)",
+
                     /* Select */
                     select: "var(--select-fg)",
 
                     /* Link */
                     link: "var(--link)",
+
+                    /* Button */
+                    button: "var(--button-fg)",
+                    "button-disabled": "var(--button-disabled-fg)",
+
+                    /* Gradient buttons */
+                    "tertiary-button": "var(--tertiary-button-fg)",
                 },
                 border: {
                     normal: "var(--border-normal)",
