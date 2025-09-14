@@ -6,8 +6,9 @@ on:
     workflow_run:
         workflows: ["CI"]
         types: ["completed"]
-        branches: [master]   # required for master
-        branches-ignore: []  # overrides and allows other branches too
+        branches:
+            - "master"
+            - "*"
 
 jobs:
     # Deploy Job
