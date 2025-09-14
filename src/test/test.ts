@@ -88,22 +88,3 @@ console.log(
             2
         )
 );
-
-const datas = [
-    { id: 1, name: "Ram", role: "Engineer" },
-    { id: 2, name: "Vijay", role: "Contractor" },
-    { id: 3, name: "Sruthi", role: "Engineer" },
-    { id: 4, name: "Smruthi", role: "Singer" },
-];
-
-
-const getData = () => {
-    datas.forEach((val:any) =>console.log(val));
-}
-
-
-const createData = () => {
-    setTimeout(() => {
-        data.
-    })
-}
