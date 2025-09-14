@@ -7,6 +7,7 @@ import { CalendarOutlined } from "@ant-design/icons";
 import CToogleButton from "../core/CToogleButton";
 import { CSlider } from "../core/CSlider";
 import useDebounce from "@/hooks/useDebounce";
+import { logEvent } from "@/utils/logEvent";
 
 const NUM_DAYS_BEFORE = 15;
 const NUM_DAYS_AFTER = 15;
@@ -40,6 +41,13 @@ const TimelineSlider: React.FC = () => {
         const [startOffset, endOffset] = isRange ? debouncedRange : [debouncedSingle, debouncedSingle];
         dispatch(setStartDate(dayjs().add(startOffset, "day").format("YYYY-MM-DD")));
         dispatch(setEndDate(dayjs().add(endOffset, "day").format("YYYY-MM-DD")));
+
+        // Log event to netlify function
+        logEvent("timeline-slider", {
+            start_date: dayjs().add(startOffset, "day").format("YYYY-MM-DD"),
+            end_date: dayjs().add(endOffset, "day").format("YYYY-MM-DD"),
+            isRange,
+        });
     }, [debouncedRange, debouncedSingle, isRange]);
 
     return (
