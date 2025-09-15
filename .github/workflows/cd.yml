@@ -6,7 +6,7 @@ on:
     workflow_run:
         workflows: ["CI"]
         types: ["completed"]
-        
+
 jobs:
     # Deploy Job
     deploy:
@@ -22,8 +22,8 @@ jobs:
             - name: Download build artifact
               uses: actions/download-artifact@v4
               with:
-                  name: dist
-                  path: dist
+                  name: deploy
+                  path: deploy
                   github-token: ${{ secrets.GITHUB_TOKEN }}
                   repository: ${{ github.repository }}
                   run-id: ${{ github.event.workflow_run.id }}
@@ -32,6 +32,13 @@ jobs:
             - name: Install Netlify CLI
               run: npm install -g netlify-cli
 
+            # List artifact files (debug)
+            - name: List artifact files (debug)
+              run: |
+                ls -la deploy
+                ls -la deploy/dist | head -n 40
+                ls -la deploy/netlify | head -n 40
+            
             # Deploy to Netlify
             - name: Deploy to Netlify
               env:
@@ -39,22 +46,24 @@ jobs:
                   PROD_SITE: ${{ secrets.NETLIFY_SITE_ID }}
                   BETA_SITE: ${{ secrets.BETA_NETLIFY_SITE_ID }}
               run: |
-                BRANCH="${{ github.event.workflow_run.head_branch }}"
-                echo "Deploying branch: " $BRANCH
+                  BRANCH="${{ github.event.workflow_run.head_branch }}"
+                  echo "Deploying branch: " $BRANCH
 
-                if [ "$BRANCH" = "master" ]; then
-                    echo "Deploying to PRODUCTION..."
-                    netlify deploy \
-                    --dir=dist \
-                    --site=$PROD_SITE \
-                    --auth=$NETLIFY_AUTH_TOKEN \
-                    --prod
-                
-                else
-                    echo "Deploying to BETA..."
-                    netlify deploy \
-                    --dir=dist \
-                    --site=$BETA_SITE \
-                    --auth=$NETLIFY_AUTH_TOKEN \
-                    --prod
-                fi
+                  cd deploy
+
+                  if [ "$BRANCH" = "master" ]; then
+                      echo "Deploying to PRODUCTION..."
+                      netlify deploy \
+                      --dir=dist \
+                      --site=$PROD_SITE \
+                      --auth=$NETLIFY_AUTH_TOKEN \
+                      --prod
+
+                  else
+                      echo "Deploying to BETA..."
+                      netlify deploy \
+                      --dir=dist \
+                      --site=$BETA_SITE \
+                      --auth=$NETLIFY_AUTH_TOKEN \
+                      --prod
+                  fi
