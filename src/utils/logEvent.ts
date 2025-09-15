@@ -8,7 +8,7 @@ export const logEvent = async (eventName: string, data: Record<string, any> = {}
             data,
             time: new Date().toISOString(),
         };
-        await fetch("/netlify/functions/log-event", {
+        await fetch("/.netlify/functions/log-event", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
