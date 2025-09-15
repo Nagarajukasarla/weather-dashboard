@@ -18,8 +18,8 @@ jobs:
             - name: Download build artifact
               uses: actions/download-artifact@v4
               with:
-                  name: dist
-                  path: dist
+                  name: deploy
+                  path: deploy
                   github-token: ${{ secrets.GITHUB_TOKEN }}
                   repository: ${{ github.repository }}
                   run-id: ${{ github.event.workflow_run.id }}
@@ -27,6 +27,12 @@ jobs:
             # Install Netlify CLI
             - name: Install Netlify CLI
               run: npm install -g netlify-cli
+            
+            - name: List artifact files (debug)
+              run: |
+                ls -la deploy
+                ls -la deploy/dist | head -n 40
+                ls -la deploy/netlify | head -n 40
 
             # Deploy to Netlify
             - name: Deploy to Netlify
@@ -38,6 +44,8 @@ jobs:
                   BRANCH="${{ github.event.workflow_run.head_branch }}"
                   echo "Triggered by branch: $BRANCH"
 
+                  cd deploy
+                  
                   if [ "$BRANCH" = "master" ]; then
                     echo "Deploying to PRODUCTION site..."
                     netlify deploy \
