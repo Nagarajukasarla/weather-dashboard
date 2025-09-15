@@ -3,8 +3,10 @@ name: CI
 # Event Triggers
 on:
     push:
+        # Trigger CI when any branch is pushed
         branches: ["*"]
     pull_request:
+        # Trigger CI when any branch is opened
         branches: ["*"]
 
 # Job
