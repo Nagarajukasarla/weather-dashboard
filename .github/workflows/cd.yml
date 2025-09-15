@@ -6,7 +6,7 @@ on:
     workflow_run:
         workflows: ["CI"]
         types: ["completed"]
-        branches: ["master"]
+        branches: ["*"]
 
 jobs:
     # Deploy Job
@@ -39,8 +39,22 @@ jobs:
                   NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
                   NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
               run: |
-                  netlify deploy \
-                  --dir=dist \
-                  --site=$NETLIFY_SITE_ID \
-                  --auth=$NETLIFY_AUTH_TOKEN \
-                  --prod
+                  BRANCH="${{ github.event.workflow_run.head_branch }}"
+                  echo "Deploying branch: " $BRANCH
+
+                  if [ "$BRANCH" = "master" ]; then
+                      echo "Deploying to PRODUCTION..."
+                      netlify deploy \
+                      --dir=dist \
+                      --site=$PROD_SITE \
+                      --auth=$NETLIFY_AUTH_TOKEN \
+                      --prod
+
+                  else
+                      echo "Deploying to BETA..."
+                      netlify deploy \
+                      --dir=dist \
+                      --site=$BETA_SITE \
+                      --auth=$NETLIFY_AUTH_TOKEN \
+                      --prod
+                  fi
