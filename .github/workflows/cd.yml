@@ -1,25 +1,20 @@
 name: CD
 
-# Event Triggers
 on:
-    # Trigger CD when CI workflow is completed
     workflow_run:
         workflows: ["CI"]
-        types: ["completed"]
-        branches: ["*"]
+        types: [completed]
 
 jobs:
-    # Deploy Job
     deploy:
         if: ${{ github.event.workflow_run.conclusion == 'success' }}
         runs-on: ubuntu-latest
 
-        # Grant read permission to the actions scope for this job
         permissions:
             actions: read
 
         steps:
-            # Download build artifact from CI workflow
+            # Download the build artifact from the CI run that triggered this
             - name: Download build artifact
               uses: actions/download-artifact@v4
               with:
@@ -40,19 +35,18 @@ jobs:
                   NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
               run: |
                   BRANCH="${{ github.event.workflow_run.head_branch }}"
-                  echo "Deploying branch: " $BRANCH
+                  echo "Triggered by branch: $BRANCH"
 
                   if [ "$BRANCH" = "master" ]; then
-                      echo "Deploying to PRODUCTION..."
-                      netlify deploy \
+                    echo "Deploying to PRODUCTION site..."
+                    netlify deploy \
                       --dir=dist \
                       --site=$PROD_SITE \
                       --auth=$NETLIFY_AUTH_TOKEN \
                       --prod
-
                   else
-                      echo "Deploying to BETA..."
-                      netlify deploy \
+                    echo "Deploying to BETA site..."
+                    netlify deploy \
                       --dir=dist \
                       --site=$BETA_SITE \
                       --auth=$NETLIFY_AUTH_TOKEN \
