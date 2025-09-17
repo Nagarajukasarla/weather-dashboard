@@ -31,33 +31,29 @@ jobs:
             - name: List artifact files (debug)
               run: |
                 ls -la deploy
-                ls -la deploy/dist | head -n 40
-                ls -la deploy/netlify | head -n 40
-
+                ls -la deploy/dist
+                ls -la deploy/scripts
+                ls -la deploy/netlify
+                ls -la deploy/netlify/functions
+            
+            # Verify and make deployment scripts executable
+            - name: Verify and prepare deployment scripts
+              run: |
+                if [ ! -f "deploy/scripts/check-cd-secrets.sh" ] || [ ! -f "deploy/scripts/deploy-to-netlify.sh" ]; then
+                  echo "Error: Required deployment scripts not found"
+                  exit 1
+                fi
+                chmod +x deploy/scripts/*.sh
+            
             # Deploy to Netlify
             - name: Deploy to Netlify
               env:
                   NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
                   PROD_SITE: ${{ secrets.NETLIFY_SITE_ID }}
                   BETA_SITE: ${{ secrets.BETA_NETLIFY_SITE_ID }}
+                  BRANCH: ${{ github.event.workflow_run.head_branch }}
               run: |
-                  BRANCH="${{ github.event.workflow_run.head_branch }}"
-                  echo "Triggered by branch: $BRANCH"
-
-                  cd deploy
-                  
-                  if [ "$BRANCH" = "master" ]; then
-                    echo "Deploying to PRODUCTION site..."
-                    netlify deploy \
-                      --dir=dist \
-                      --site=$PROD_SITE \
-                      --auth=$NETLIFY_AUTH_TOKEN \
-                      --prod
-                  else
-                    echo "Deploying to BETA site..."
-                    netlify deploy \
-                      --dir=dist \
-                      --site=$BETA_SITE \
-                      --auth=$NETLIFY_AUTH_TOKEN \
-                      --prod
-                  fi
+                # Verify secrets first
+                ./deploy/scripts/check-cd-secrets.sh
+                # Run deployment
+                ./deploy/scripts/deploy-to-netlify.sh

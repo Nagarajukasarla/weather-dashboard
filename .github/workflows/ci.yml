@@ -34,17 +34,20 @@ jobs:
               run: bunx tsc --noEmit
 
             - name: Make scripts executable
-              run: chmod +x scripts/check-secrets.sh scripts/create-env.sh
+              run: chmod +x scripts/check-ci-secrets.sh scripts/create-env.sh scripts/prepare-deploy.sh
 
             - name: Validate secrets
-              run: ./scripts/check-secrets.sh
+              run: ./scripts/check-ci-secrets.sh
 
             - name: Create .env.production
               run: ./scripts/create-env.sh
 
             - name: Build
               run: bun run build
-
+            
+            - name: Prepare deployment artifacts with separated serverless deps
+              run: ./scripts/prepare-deploy.sh
+            
             - name: Upload production-ready build
               uses: actions/upload-artifact@v4
 
