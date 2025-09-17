@@ -17,7 +17,7 @@ export async function handler(event, context) {
             VALUES ($1, $2, $3)
             RETURNING id, user_session_id;
         `;
-        const values = [body.sessionId, body.eventName, body.eventData];
+        const values = [body.sessionId, body.eventName, body.data];
 
         const result = await pool.query(query, values);
         console.log("Event logged successfully on sessionId: ", body.sessionId);
