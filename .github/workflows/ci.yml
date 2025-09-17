@@ -42,7 +42,7 @@ jobs:
 
             - name: Build
               run: bun run build
-            
+
             - name: Prepare deployment artifacts with separated serverless deps
               run: ./scripts/prepare-deploy.sh
             

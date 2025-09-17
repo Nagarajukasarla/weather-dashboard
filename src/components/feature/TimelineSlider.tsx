@@ -41,6 +41,12 @@ const TimelineSlider: React.FC = () => {
         const [startOffset, endOffset] = isRange ? debouncedRange : [debouncedSingle, debouncedSingle];
         dispatch(setStartDate(dayjs().add(startOffset, "day").format("YYYY-MM-DD")));
         dispatch(setEndDate(dayjs().add(endOffset, "day").format("YYYY-MM-DD")));
+
+        logEvent("timeline-slider", {
+            start_date: dayjs().add(startOffset, "day").format("YYYY-MM-DD"),
+            end_date: dayjs().add(endOffset, "day").format("YYYY-MM-DD"),
+            isRange,
+        });
     }, [debouncedRange, debouncedSingle, isRange]);
 
     const handleValueChange = (value: number[], isRange: boolean) => {
@@ -49,12 +55,6 @@ const TimelineSlider: React.FC = () => {
         } else {
             setSingle(value[0]);
         }
-
-        logEvent("timeline-slider", {
-            start_date: dayjs().add(value[0], "day").format("YYYY-MM-DD"),
-            end_date: dayjs().add(value[1], "day").format("YYYY-MM-DD"),
-            isRange,
-        });
     };
 
     return (
