@@ -1,0 +1,9 @@
+{
+    "name": "weather-dashboard-serverless",
+    "version": "1.0.0",
+    "dependencies": {
+      "pg": "^8.11.3"
+    },
+    "type": "module"
+  }
+  

@@ -38,6 +38,7 @@ jobs:
                 ls -la deploy
                 ls -la deploy/dist
                 ls -la deploy/netlify
+                ls -la deploy/netlify/functions
             
             # Deploy to Netlify
             - name: Deploy to Netlify

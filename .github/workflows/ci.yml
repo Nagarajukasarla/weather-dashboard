@@ -53,6 +53,10 @@ jobs:
                   # copy netlify.toml into deploy/ (so deploy/netlify.toml)
                   cp netlify.toml deploy/netlify.toml
                 
+                  # Install netlify deps 
+                  cd deploy/netlify/functions
+                  bun install
+                  cd -
             - name: Upload production-ready build
               uses: actions/upload-artifact@v4
 
