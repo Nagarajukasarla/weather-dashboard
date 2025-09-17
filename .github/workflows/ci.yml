@@ -52,7 +52,7 @@ jobs:
                   cp -r netlify deploy/netlify
                   # copy netlify.toml into deploy/ (so deploy/netlify.toml)
                   cp netlify.toml deploy/netlify.toml
-
+                
             - name: Upload production-ready build
               uses: actions/upload-artifact@v4
 

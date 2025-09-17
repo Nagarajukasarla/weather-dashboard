@@ -36,8 +36,8 @@ jobs:
             - name: List artifact files (debug)
               run: |
                 ls -la deploy
-                ls -la deploy/dist | head -n 40
-                ls -la deploy/netlify | head -n 40
+                ls -la deploy/dist
+                ls -la deploy/netlify
             
             # Deploy to Netlify
             - name: Deploy to Netlify

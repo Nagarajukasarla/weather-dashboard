@@ -41,14 +41,21 @@ const TimelineSlider: React.FC = () => {
         const [startOffset, endOffset] = isRange ? debouncedRange : [debouncedSingle, debouncedSingle];
         dispatch(setStartDate(dayjs().add(startOffset, "day").format("YYYY-MM-DD")));
         dispatch(setEndDate(dayjs().add(endOffset, "day").format("YYYY-MM-DD")));
+    }, [debouncedRange, debouncedSingle, isRange]);
 
-        // Log event to netlify function
+    const handleValueChange = (value: number[], isRange: boolean) => {
+        if (isRange) {
+            setRange(value as [number, number]);
+        } else {
+            setSingle(value[0]);
+        }
+
         logEvent("timeline-slider", {
-            start_date: dayjs().add(startOffset, "day").format("YYYY-MM-DD"),
-            end_date: dayjs().add(endOffset, "day").format("YYYY-MM-DD"),
+            start_date: dayjs().add(value[0], "day").format("YYYY-MM-DD"),
+            end_date: dayjs().add(value[1], "day").format("YYYY-MM-DD"),
             isRange,
         });
-    }, [debouncedRange, debouncedSingle, isRange]);
+    };
 
     return (
         <div>
@@ -71,7 +78,7 @@ const TimelineSlider: React.FC = () => {
                 {isRange ? (
                     <CSlider
                         value={range}
-                        onValueChange={(val: number[]) => setRange(val as [number, number])}
+                        onValueChange={(val: number[]) => handleValueChange(val, true)}
                         min={min}
                         max={max}
                         step={1}
@@ -80,7 +87,7 @@ const TimelineSlider: React.FC = () => {
                 ) : (
                     <CSlider
                         value={[single]}
-                        onValueChange={(val: number[]) => setSingle(val[0])}
+                        onValueChange={(val: number[]) => handleValueChange(val, false)}
                         min={min}
                         max={max}
                         step={1}

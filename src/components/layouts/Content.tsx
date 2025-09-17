@@ -23,6 +23,7 @@ import {
     getNivoLineChartData,
     getTransformedWeatherData,
 } from "@/utils/dashboard";
+import { logEvent } from "@/utils/logEvent";
 import { getPolygonCenter } from "@/utils/map";
 import { BarChartOutlined, DotChartOutlined, SlidersOutlined, StockOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
@@ -260,6 +261,8 @@ const Content: React.FC = () => {
         const currentDate = chartType === "bar" ? currentBarChartDate : currentLineChartDate;
         const setDate = chartType === "bar" ? setCurrentBarChartDate : setCurrentLineChartDate;
 
+        logEvent("date-change", { action, chartType, currentDate });
+
         const date = dayjs(currentDate);
         if (action === "prev") {
             if (date.isAfter(dayjs(start_date))) {
@@ -346,7 +349,10 @@ const Content: React.FC = () => {
                             <SSelect
                                 value={barChartView}
                                 options={CHART_VIEW_OPTIONS}
-                                onValueChange={value => setBarChartView(value)}
+                                onValueChange={value => {
+                                    logEvent("bar-chart-view-change", { value });
+                                    setBarChartView(value);
+                                }}
                             />
                             {!dayjs(start_date).isSame(end_date) && barChartView.value === "hourly" && (
                                 <DaySelector
@@ -379,7 +385,10 @@ const Content: React.FC = () => {
                             <SSelect
                                 value={lineChartView}
                                 options={CHART_VIEW_OPTIONS}
-                                onValueChange={value => setLineChartView(value)}
+                                onValueChange={value => {
+                                    logEvent("line-chart-view-change", { value });
+                                    setLineChartView(value);
+                                }}
                             />
                             {!dayjs(start_date).isSame(end_date) && lineChartView.value === "hourly" && (
                                 <DaySelector
