@@ -5,7 +5,7 @@ export const logEvent = async (eventName: string, data: Record<string, any> = {}
         const payload = {
             sessionId: getSessionId(),
             eventName,
-            data,
+            data: {...data, timestamp: new Date().toISOString()},
         };
         const response: Response = await fetch("/.netlify/functions/log-event", {
             method: "POST",
