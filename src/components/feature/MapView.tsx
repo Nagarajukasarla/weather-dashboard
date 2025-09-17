@@ -6,6 +6,7 @@ import { type RootState } from "@/state";
 import { addShape, deleteShape, updateShape } from "@/state/mapSlice";
 import type { PopupType } from "@/types/component";
 import type { MapAction } from "@/types/map";
+import { logEvent } from "@/utils/logEvent";
 import { getPolygonCenter, getTemperatureColor } from "@/utils/map";
 import L, { type LatLngLiteral, type LeafletEvent } from "leaflet";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -115,6 +116,7 @@ const MapView = ({ onAction }: MapViewProps) => {
 
         dispatch(addShape(shape));
         onAction({ type: "CREATE", shape });
+        logEvent("shape-create", { shape });
     };
 
     const handleShapeDelete = (e: any) => {
@@ -126,6 +128,7 @@ const MapView = ({ onAction }: MapViewProps) => {
                 onAction({ type: "DELETE", id: shapeId });
             }
         });
+        logEvent("shape-delete", {});
     };
 
     const handleShapeEdit = (e: any) => {
@@ -150,6 +153,7 @@ const MapView = ({ onAction }: MapViewProps) => {
             dispatch(updateShape(updated));
             onAction({ type: "UPDATE", shape: updated });
         });
+        logEvent("shape-update", {});
     };
 
     // Rebuild visible layers from Redux shapes any time shapes change

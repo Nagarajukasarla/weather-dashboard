@@ -7,6 +7,7 @@ import { CalendarOutlined } from "@ant-design/icons";
 import CToogleButton from "../core/CToogleButton";
 import { CSlider } from "../core/CSlider";
 import useDebounce from "@/hooks/useDebounce";
+import { logEvent } from "@/utils/logEvent";
 
 const NUM_DAYS_BEFORE = 15;
 const NUM_DAYS_AFTER = 15;
@@ -42,6 +43,20 @@ const TimelineSlider: React.FC = () => {
         dispatch(setEndDate(dayjs().add(endOffset, "day").format("YYYY-MM-DD")));
     }, [debouncedRange, debouncedSingle, isRange]);
 
+    const handleValueChange = (value: number[], isRange: boolean) => {
+        if (isRange) {
+            setRange(value as [number, number]);
+        } else {
+            setSingle(value[0]);
+        }
+
+        logEvent("timeline-slider", {
+            start_date: dayjs().add(value[0], "day").format("YYYY-MM-DD"),
+            end_date: dayjs().add(value[1], "day").format("YYYY-MM-DD"),
+            isRange,
+        });
+    };
+
     return (
         <div>
             {/* Header */}
@@ -63,7 +78,7 @@ const TimelineSlider: React.FC = () => {
                 {isRange ? (
                     <CSlider
                         value={range}
-                        onValueChange={(val: number[]) => setRange(val as [number, number])}
+                        onValueChange={(val: number[]) => handleValueChange(val, true)}
                         min={min}
                         max={max}
                         step={1}
@@ -72,7 +87,7 @@ const TimelineSlider: React.FC = () => {
                 ) : (
                     <CSlider
                         value={[single]}
-                        onValueChange={(val: number[]) => setSingle(val[0])}
+                        onValueChange={(val: number[]) => handleValueChange(val, false)}
                         min={min}
                         max={max}
                         step={1}

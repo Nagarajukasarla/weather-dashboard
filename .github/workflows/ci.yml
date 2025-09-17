@@ -3,12 +3,10 @@ name: CI
 # Event Triggers
 on:
     push:
-        # branches: [master]        # For production
-        branches: ["*"]         # For testing
+        branches: ["*"]
     pull_request:
-        # branches: [master]        # For production
-        branches: ["*"]         # For testing
-        
+        branches: ["*"]
+
 # Job
 jobs:
     # Build Job
@@ -54,5 +52,5 @@ jobs:
               # Skip if running in local environment
               if: ${{ !env.ACT }}
               with:
-                  name: dist
-                  path: dist
+                  name: deploy
+                  path: deploy

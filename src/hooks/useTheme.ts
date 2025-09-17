@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { logEvent } from "@/utils/logEvent";
 
 const useTheme = () => {
     const [isDark, setIsDark] = useState(() => {
@@ -23,7 +24,10 @@ const useTheme = () => {
         }
     }, [isDark]);
 
-    const toggleMode = () => setIsDark(prev => !prev);
+    const toggleMode = () => {
+        setIsDark(prev => !prev);
+        logEvent("theme-toggle", { isDark: !isDark });
+    };
 
     return { isDark, toggleMode };
 };

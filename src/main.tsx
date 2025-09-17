@@ -5,6 +5,7 @@ import Layout from "@/components/layouts/Layout";
 import "./index.css";
 import store from "./state";
 import "@/utils/leafletIconConfig.ts";
+import { logEvent } from "@/utils/logEvent";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
@@ -13,3 +14,5 @@ createRoot(document.getElementById("root")!).render(
         </Provider>
     </StrictMode>
 );
+
+logEvent("page_view", { path: window.location.pathname });
