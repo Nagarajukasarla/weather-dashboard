@@ -15,4 +15,4 @@ createRoot(document.getElementById("root")!).render(
     </StrictMode>
 );
 
-logEvent("page_view", { path: window.location.pathname });
+logEvent("page_view", { device: window.innerWidth < 640 ? "mobile" : window.innerWidth < 768 ? "tablet" : window.innerWidth < 1024 ? "desktop" : "large-desktop" });

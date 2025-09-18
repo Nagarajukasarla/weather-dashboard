@@ -2,6 +2,7 @@ import GradientButton from "@/components/core/GradientButton";
 import SparklesIcon from "@/components/core/SparkIcon";
 import { GithubOutlined } from "@ant-design/icons";
 import { Info } from "@/constants/info";
+import { logEvent } from "@/utils/logEvent";
 
 /**
  * Footer component with external links
@@ -16,7 +17,7 @@ const Footer: React.FC = () => {
             shadow-box-shadow"
         >
             <div className="flex items-center gap-12">
-                <a href={Info.GITHUB}>
+                <a href={Info.GITHUB} onClick={() => logEvent("visited-github", {})}>
                     <GithubOutlined className="text-heading-h1 text-foreground" />
                 </a>
                 <GradientButton
@@ -25,6 +26,7 @@ const Footer: React.FC = () => {
                     size="md"
                     className="w-[180px]"
                     icon={<SparklesIcon />}
+                    onClick={() => logEvent("visited-portfolio", {})}
                 >
                     <p className="text-text-t2">KNOW ME</p>
                 </GradientButton>
