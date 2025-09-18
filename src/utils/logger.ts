@@ -1,5 +1,6 @@
 // Only log in development
 const isDev = import.meta.env.VITE_DEBUG;
+console.log("isDev: ", isDev);
 
 /**
  * Get caller name from stack trace
