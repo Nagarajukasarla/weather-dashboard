@@ -71,7 +71,7 @@ const CustomTooltip = ({ slice }: { slice: any }) => {
 export const DualAxisLineChart: React.FC<Props> = ({ data, height }) => {
     const log = logger.create("DualAxisLineChart");
     const windowDimensions = useMeasure()[2];
-    logger.debug("NLineChart: ", windowDimensions);
+    log.debug("NLineChart: ", windowDimensions);
     const step =
         windowDimensions.device === "md"
             ? 2
