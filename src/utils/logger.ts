@@ -1,6 +1,5 @@
 // Only log in development
-const isDev = import.meta.env.VITE_DEBUG;
-console.log("isDev: ", isDev);
+const isDev = import.meta.env.VITE_DEBUG === "true";
 
 /**
  * Get caller name from stack trace
@@ -30,18 +29,17 @@ const getCallerName = (): string => {
  * Logger object with methods for logging
  */
 const logger = {
-    log: (...args: any[]) => isDev && console.log(`isDev: (${isDev})[${getCallerName()}]`, ...args),
-    warn: (...args: any[]) => isDev && console.warn(`isDev: (${isDev})[${getCallerName()}]`, ...args),
-    error: (...args: any[]) => console.error(`isDev: (${isDev})[${getCallerName()}]`, ...args),
-    debug: (namespace: string = getCallerName(), ...args: any[]) => isDev && console.log(`isDev: (${isDev})[${namespace}]`, ...args),
+    log: (...args: any[]) => isDev && console.log(`[${getCallerName()}]`, ...args),
+    warn: (...args: any[]) => isDev && console.warn(`[${getCallerName()}]`, ...args),
+    error: (...args: any[]) => isDev && console.error(`[${getCallerName()}]`, ...args),
+    debug: (namespace: string = getCallerName(), ...args: any[]) => isDev && console.log(`[${namespace}]`, ...args),
 
     // Method to create a namespaced logger
     create: (namespace: string) => ({
-        log: (...args: any[]) => isDev && console.log(`isDev: (${isDev})[${namespace}]`, ...args),
-        warn: (...args: any[]) => isDev && console.warn(`isDev: (${isDev})[${namespace}]`, ...args),
-        error: (...args: any[]) => console.error(`isDev: (${isDev})[${namespace}]`, ...args),
-        debug: (message: string, ...args: any[]) =>
-            isDev && console.log(`isDev: (${isDev})[${namespace}]:${message}`, ...args),
+        log: (...args: any[]) => isDev && console.log(`[${namespace}]`, ...args),
+        warn: (...args: any[]) => isDev && console.warn(`[${namespace}]`, ...args),
+        error: (...args: any[]) => isDev && console.error(`[${namespace}]`, ...args),
+        debug: (message: string, ...args: any[]) => isDev && console.log(`[${namespace}]:${message}`, ...args),
     }),
 };
 
