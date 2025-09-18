@@ -6,50 +6,85 @@ const pool = new Pool({
     ssl: { rejectUnauthorized: false },
 });
 
-const getClientIp = (headers) => {
-    const ipFromXForwardedFor = headers["x-forwarded-for"]?.split(",")[0]?.trim();
-    return (
-      headers["x-nf-client-connection-ip"] || // Netlify-provided
-      headers["cf-connecting-ip"] ||          // Cloudflare
-      ipFromXForwardedFor ||                  // Generic proxy
-      headers["client-ip"] || 
-      "unknown"
-    );
-  }
-  
+// Function to safely parse JSON from request body
+const parseRequestBody = async event => {
+    try {
+        if (!event.body) return {};
+        return typeof event.body === "string" ? JSON.parse(event.body) : event.body;
+    } catch (error) {
+        console.error("Error parsing request body:", error);
+        return {};
+    }
+};
+
 export async function handler(event, context) {
     try {
         console.log("DB_URL: ", process.env.SUPABASE_URL);
-        const body = event.body ? JSON.parse(event.body) : null;
-        console.log("TRACK_EVENT:", JSON.stringify(body));
 
-        const ip = getClientIp(event.headers);
-        // Optional: lookup geo data
-        let location = {};
-        if (ip !== "unknown") {
-            const resp = await fetch(
-                `http://ip-api.com/json/${ip}?fields=status,country,regionName,city,query`
-            );
-            location = await resp.json();
+        // Parse the request body using our helper function
+        const body = await parseRequestBody(event);
+        if (!body || Object.keys(body).length === 0) {
+            throw new Error("Invalid request body");
         }
+
+        console.log("TRACK_EVENT:", JSON.stringify(body, null, 2));
+
+        // Use client IP from the request body, fallback to server-detected IP
+        const clientIp = body.clientIp || getClientIp(event.headers);
+
+        // Get location data if IP is available
+        let location = {};
+        if (clientIp && clientIp !== "unknown") {
+            try {
+                const resp = await fetch(
+                    `http://ip-api.com/json/${clientIp}?fields=status,country,regionName,city,query`
+                );
+                location = await resp.json();
+            } catch (locationError) {
+                console.error("Error fetching location data:", locationError);
+                // Continue without location data if the API call fails
+            }
+        }
+
         const query = `
-            INSERT INTO weather_dashboard.user_analytics (user_session_id, action, operation, ip, location)
-            VALUES ($1, $2, $3, $4, $5)
+            INSERT INTO weather_dashboard.user_analytics 
+            (user_session_id, action, operation, ip, location, user_agent)
+            VALUES ($1, $2, $3, $4, $5, $6)
             RETURNING id, user_session_id;
         `;
-        const values = [body.sessionId, body.eventName, body.data, ip, location];
+
+        const values = [
+            body.sessionId,
+            body.eventName,
+            body.data,
+            clientIp,
+            JSON.stringify(location),
+            body.data?.userAgent || null,
+        ];
 
         const result = await pool.query(query, values);
-        console.log("Event logged successfully on sessionId: ", body.sessionId);
+        console.log("Event logged successfully for sessionId:", body.sessionId);
+
         return {
             statusCode: 200,
-            body: JSON.stringify({ ok: true, result: result.rows[0] }),
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                ok: true,
+                result: {
+                    id: result.rows[0]?.id,
+                    sessionId: body.sessionId,
+                },
+            }),
         };
     } catch (error) {
-        console.error("DB Error:", error);
+        console.error("Error processing request:", error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: "DB Insert failed." }),
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                ok: false,
+                error: "Failed to log event",
+            }),
         };
     }
 }

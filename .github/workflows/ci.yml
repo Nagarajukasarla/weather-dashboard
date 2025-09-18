@@ -40,6 +40,9 @@ jobs:
             - name: Create .env.production
               run: ./scripts/create-env.sh
 
+            - name: list env file & contents
+              run: ls -la && cat .env.production
+
             - name: Run tests
               run: bun test
 

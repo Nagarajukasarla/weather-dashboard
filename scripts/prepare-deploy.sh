@@ -6,6 +6,7 @@ mkdir -p deploy
 
 # Copy dist directory to deploy/dist
 cp -r dist deploy/dist
+cp -v .env.production deploy/dist/.env.production
 
 # Create scripts directory and copy deploy scripts
 mkdir -p deploy/scripts
