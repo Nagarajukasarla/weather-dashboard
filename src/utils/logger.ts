@@ -1,5 +1,5 @@
 // Only log in development
-const isDev = import.meta.env.VITE_DEBUG;
+const isDev = import.meta.env.VITE_DEBUG === "true";
 
 /**
  * Get caller name from stack trace
@@ -31,16 +31,15 @@ const getCallerName = (): string => {
 const logger = {
     log: (...args: any[]) => isDev && console.log(`[${getCallerName()}]`, ...args),
     warn: (...args: any[]) => isDev && console.warn(`[${getCallerName()}]`, ...args),
-    error: (...args: any[]) => console.error(`[${getCallerName()}]`, ...args),
+    error: (...args: any[]) => isDev && console.error(`[${getCallerName()}]`, ...args),
     debug: (namespace: string = getCallerName(), ...args: any[]) => isDev && console.log(`[${namespace}]`, ...args),
 
     // Method to create a namespaced logger
     create: (namespace: string) => ({
         log: (...args: any[]) => isDev && console.log(`[${namespace}]`, ...args),
         warn: (...args: any[]) => isDev && console.warn(`[${namespace}]`, ...args),
-        error: (...args: any[]) => console.error(`[${namespace}]`, ...args),
-        debug: (message: string, ...args: any[]) =>
-            isDev && console.log(`[${namespace}]:${message}`, ...args),
+        error: (...args: any[]) => isDev && console.error(`[${namespace}]`, ...args),
+        debug: (message: string, ...args: any[]) => isDev && console.log(`[${namespace}]:${message}`, ...args),
     }),
 };
 

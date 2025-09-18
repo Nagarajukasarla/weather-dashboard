@@ -1,27 +1,58 @@
 import { getSessionId } from "@/utils/uuidGenerator";
+import logger from "./logger";
 
-export const logEvent = async (eventName: string, data: Record<string, any> = {}) => {
+interface EventData extends Record<string, any> {
+    userAgent?: string;
+    timestamp?: string;
+}
+
+interface LogEventResponse {
+    ok: boolean;
+    result?: {
+        id: string;
+        sessionId: string;
+    };
+    error?: string;
+}
+
+export const logEvent = async (eventName: string, data: EventData = {}): Promise<void> => {
     try {
         const payload = {
             sessionId: getSessionId(),
             eventName,
-            data: {...data, timestamp: new Date().toISOString()},
+            data: {
+                ...data,
+                userAgent: navigator.userAgent,
+                timestamp: new Date().toISOString(),
+            },
         };
-        const response: Response = await fetch("/.netlify/functions/log-event", {
+
+        const response = await fetch("/.netlify/functions/log-event", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(payload),
         });
-        const result: any = await response.json();
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result: LogEventResponse = await response.json();
 
         if (result.ok) {
-            console.log("Event logged successfully on sessionId: ", result.result);
+            logger.log("Event logged successfully", {
+                sessionId: result.result?.sessionId,
+                eventName,
+            });
         } else {
-            console.error("Failed to log event", result.error);
+            throw new Error(result.error || "Unknown error logging event");
         }
     } catch (error) {
-        console.error("Failed to log event", error);
+        logger.error("Failed to log event", {
+            error: error instanceof Error ? error.message : String(error),
+            eventName,
+        });
     }
 };

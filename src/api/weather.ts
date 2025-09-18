@@ -1,7 +1,7 @@
 import type { LatLngLiteral } from "leaflet";
 import type { OpenMeteoResponse } from "../types/api";
 import APIResponse from "../classes/APIResponse";
-import logger from "@/utils/logger";
+import logger from "../utils/logger";
 
 const BASE_URL = import.meta.env.VITE_WEATHER_API_BASE_URL;
 logger.debug("BASE_URL", BASE_URL);

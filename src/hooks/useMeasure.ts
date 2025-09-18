@@ -7,9 +7,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
  */
 export function useMeasure() {
     const [divDimensions, setDivDimensions] = useState<Dimensions>({ width: 0, height: 0 });
-    const [windowDimensions, setWindowDimensions] = useState<WindowSize>({ 
+    const [windowDimensions, setWindowDimensions] = useState<WindowSize>({
         dimensions: { width: window.innerWidth, height: window.innerHeight },
-        device: "lg"
+        device: "lg",
     });
     const ref = useRef<HTMLDivElement>(null);
 
@@ -17,7 +17,7 @@ export function useMeasure() {
         if (!entries.length) return;
         const { width, height } = entries[0].contentRect;
         setDivDimensions({ width, height });
-    }, []);  
+    }, []);
 
     useEffect(() => {
         if (!ref.current) return;
@@ -35,10 +35,14 @@ export function useMeasure() {
 
     useEffect(() => {
         const handleWindowResize = () => {
-            const device = window.innerWidth < 640 ? 
-                "xs" : window.innerWidth < 768 ? 
-                "sm" : window.innerWidth < 1024 ? 
-                "md" : "lg";
+            const device =
+                window.innerWidth < 640
+                    ? "xs"
+                    : window.innerWidth < 768
+                    ? "sm"
+                    : window.innerWidth < 1024
+                    ? "md"
+                    : "lg";
             setWindowDimensions({
                 dimensions: {
                     height: window.innerHeight,

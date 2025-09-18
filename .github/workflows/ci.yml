@@ -40,6 +40,9 @@ jobs:
             - name: Create .env.production
               run: ./scripts/create-env.sh
 
+            - name: Run tests
+              run: bun test
+
             - name: Build
               run: bun run build
 
