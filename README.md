@@ -70,6 +70,37 @@ Check out the live demo: [Weather Dashboard](https://weather-dashboard.nagarajuk
 - [Recharts](https://recharts.org/) - Data visualization
 - [Open-Meteo API](https://open-meteo.com/) - Weather data
 
+## 🔧 Configuration
+
+### Environment Variables
+
+Create a `.env` file in the root directory and add the following environment variables:
+
+```env
+# Development & Production
+VITE_WEATHER_API_BASE_URL=<weather_api_base_url>
+VITE_DEBUG=true  # Set to false in production
+
+# Production Only (Netlify Environment Variables)
+SUPABASE_URL=<your_supabase_project_url>
+```
+
+### Supabase Configuration
+
+The application uses Supabase for backend services. For production, you'll need to set up the following:
+
+1. **Supabase Connection**: The application connects to Supabase using a connection string in production:
+   ```javascript
+   const pool = new Pool({
+       connectionString: process.env.SUPABASE_URL,
+       ssl: { rejectUnauthorized: false },
+   });
+   ```
+
+2. **Netlify Setup**: When deploying to Netlify:
+   - Add the `SUPABASE_URL` to your Netlify environment variables
+   - The connection will automatically use SSL in production
+
 ## 🚀 Getting Started
 
 1. Clone the repository:
