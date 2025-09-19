@@ -46,7 +46,9 @@ const getLocationData = async (ip) => {
     
     try {
         // Using ipapi.co which supports HTTPS and has a good free tier
-        const response = await fetch(`https://ipapi.co/${ip}/json/`);
+        const response = await fetch(
+            `http://ip-api.com/json/${ip}?fields=status,country,regionName,city,query`
+          );
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         
         const location = await response.json();
