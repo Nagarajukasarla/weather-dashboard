@@ -4,9 +4,20 @@
   <img src="src/assets/screenshots/Mapview.png" alt="Weather Dashboard" width="800">
 </div>
 
-[![React](https://img.shields.io/badge/React-18.2.0-blue.svg?style=for-the-badge&logo=react)](https://reactjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.7.2-blue.svg?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-6.2.0-purple.svg?style=for-the-badge&logo=vite)](https://vitejs.dev/)
+<br/>
+
+<div align="center">
+
+  [![React](https://img.shields.io/badge/React-18.2.0-blue.svg?style=for-the-badge&logo=react)](https://reactjs.org/)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-5.7.2-blue.svg?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+  [![Vite](https://img.shields.io/badge/Vite-6.2.0-purple.svg?style=for-the-badge&logo=vite)](https://vitejs.dev/)
+  [![Leaflet](https://img.shields.io/badge/Leaflet-1.9.4-green.svg?style=for-the-badge&logo=leaflet)](https://leafletjs.com/)
+  [![Nivo Charts](https://img.shields.io/badge/Nivo-0.80.0-orange.svg?style=for-the-badge&logo=chartdotjs)](https://nivo.rocks/)
+  [![Recharts](https://img.shields.io/badge/Recharts-2.12.0-pink.svg?style=for-the-badge&logo=apollographql)](https://recharts.org/)
+
+</div>
+
+
 
 
 ## 🌦️ About The Project
@@ -15,7 +26,7 @@ A modern, interactive weather dashboard that provides real-time weather data vis
 
 ## 🌍 Live Demo
 
-Check out the live demo: [Weather Dashboard](https://www.weather-dashboards.nagarajukasarla.live)
+Check out the live demo: [Weather Dashboard](https://weather-dashboard.nagarajukasarla.live)
 
 ## 📸 Screenshots
 
@@ -82,26 +93,6 @@ Check out the live demo: [Weather Dashboard](https://www.weather-dashboards.naga
    ```
 
 4. Open [http://localhost:5173](http://localhost:5173) in your browser.
-
-## 📁 Project Structure
-
-```
-src/
-├── api/               # API integration
-├── assets/            # Static assets
-├── classes/           # Classes
-├── constants/         # Constants
-├── components/        # Reusable components
-│   ├── core/          # Core UI components
-│   ├── feature/       # Feature-specific components
-│   └── layouts/       # Page layouts
-├── context/           # Context
-├── hooks/             # Custom hooks
-├── state/             # Redux store and slices
-├── types/             # TypeScript type definitions
-└── utils/             # Utility functions
-```
-
 ## 📝 License
 
 Distributed under the MIT License. See `LICENSE` for more information.
