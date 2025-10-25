@@ -12,18 +12,14 @@ const mapSlice = createSlice({
         addShape: (state, action: PayloadAction<PolygonShape>) => {
             state.shapes.push(action.payload);
         },
-        clearShapes: (state) => {
+        clearShapes: state => {
             state.shapes = [];
         },
         deleteShape: (state, action: PayloadAction<string>) => {
-            state.shapes = state.shapes.filter(
-                shape => shape.id !== action.payload
-            );
+            state.shapes = state.shapes.filter(shape => shape.id !== action.payload);
         },
         updateShape: (state, action: PayloadAction<PolygonShape>) => {
-            state.shapes = state.shapes.map(
-                shape => shape.id === action.payload.id ? action.payload : shape
-            );
+            state.shapes = state.shapes.map(shape => (shape.id === action.payload.id ? action.payload : shape));
         },
     },
 });
